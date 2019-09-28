@@ -8,4 +8,5 @@ public class OutcomeOdd {
     LocalDateTime validFrom;
     LocalDateTime validUntil;
     Wager wager;
+    Outcome outcome;
 }
