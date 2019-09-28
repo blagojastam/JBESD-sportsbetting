@@ -11,6 +11,30 @@ public class Outcome {
 
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<OutcomeOdd> getOutcomeOdds() {
+        return outcomeOdds;
+    }
+
+    public void setOutcomeOdds(List<OutcomeOdd> outcomeOdds) {
+        this.outcomeOdds = outcomeOdds;
+    }
+
+    public Bet getBet() {
+        return bet;
+    }
+
+    public void setBet(Bet bet) {
+        this.bet = bet;
+    }
+
     public static class Builder {
         String description;
         List<OutcomeOdd> outcomeOdds;
