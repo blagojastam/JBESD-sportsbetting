@@ -2,5 +2,5 @@ package com.epam.training.domain;
 
 public abstract class User {
     protected String email;
-    protected String password;
+    protected String password; // because storing passwords in plaintext is cool :)
 }
