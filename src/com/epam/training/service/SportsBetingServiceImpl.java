@@ -8,6 +8,8 @@ import java.util.List;
 
 public class SportsBetingServiceImpl implements SportsBettingService {
     Player currentPlayer;
+    List<SportEvent> sportEvents;
+    List<Wager> wagers;
 
     @Override
     public void savePlayer(Player player) {
@@ -16,26 +18,26 @@ public class SportsBetingServiceImpl implements SportsBettingService {
 
     @Override
     public Player findPlayer() {
-        return this.currentPlayer;
+        return currentPlayer;
     }
 
     @Override
     public List<SportEvent> findAllSportEvents() {
-        return null;
+        return sportEvents;
     }
 
     @Override
     public void saveWager(Wager wager) {
-
+        wagers.add(wager); // TODO: Change creational pattern
     }
 
     @Override
     public List<Wager> findAllWagers() {
-        return null;
+        return wagers;
     }
 
     @Override
     public void calculateResults() {
-
+        // TODO : Implement logic
     }
 }
