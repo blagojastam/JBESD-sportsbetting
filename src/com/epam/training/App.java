@@ -1,5 +1,8 @@
 package com.epam.training;
 
+import com.epam.training.domain.FootballSportEvent;
+import com.epam.training.domain.SportEvent;
+import com.epam.training.domain.TennisSportEvent;
 import com.epam.training.service.SportsBettingServiceImpl;
 import com.epam.training.service.SportsBettingService;
 import com.epam.training.view.View;
@@ -16,9 +19,10 @@ public class App {
     }
 
     public static void main(String[] args) {
-	// write your code here
-    }
+        SportEvent event = new SportEvent.Builder("football").buildFootballEvent();
+        SportEvent two = new SportEvent.Builder("tennis").buildTennisEvent();
 
+    }
     public void play() {
 
     }

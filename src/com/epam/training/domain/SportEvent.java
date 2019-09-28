@@ -49,4 +49,64 @@ public abstract class SportEvent {
     public void setBets(List<Bet> bets) {
         this.bets = bets;
     }
+
+    public static class Builder {
+        protected String title;
+        protected LocalDateTime startDate;
+        protected LocalDateTime endDate;
+        protected Result result;
+        protected List<Bet> bets;
+
+        public Builder(String title) {
+            this.title = title;
+        }
+
+        public Builder withStartDate(LocalDateTime startDate) {
+            this.startDate = startDate;
+
+            return this;
+        }
+
+        public Builder withEndDate(LocalDateTime endDate) {
+            this.endDate = endDate;
+
+            return this;
+        }
+
+        public Builder withResult(Result result) {
+            this.result = result;
+
+            return this;
+        }
+
+        public Builder withBets(List<Bet> bets) {
+            this.bets = bets;
+
+            return this;
+        }
+
+        public FootballSportEvent buildFootballEvent() {
+            FootballSportEvent footballSportEvent = new FootballSportEvent();
+
+            footballSportEvent.title = this.title;
+            footballSportEvent.startDate = this.startDate;
+            footballSportEvent.endDate = this.endDate;
+            footballSportEvent.result = this.result;
+            footballSportEvent.bets = this.bets;
+
+            return footballSportEvent;
+        }
+
+        public TennisSportEvent buildTennisEvent() {
+            TennisSportEvent tennisSportEvent = new TennisSportEvent();
+
+            tennisSportEvent.title = this.title;
+            tennisSportEvent.startDate = this.startDate;
+            tennisSportEvent.endDate = this.endDate;
+            tennisSportEvent.result = this.result;
+            tennisSportEvent.bets = this.bets;
+
+            return tennisSportEvent;
+        }
+    }
 }
