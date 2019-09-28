@@ -22,4 +22,20 @@ public class App {
     public void play() {
 
     }
+
+    void createPlayer() {
+
+    }
+
+    void doBetting() {
+
+    }
+
+    void calculateResults() {
+
+    }
+
+    void printResults () {
+
+    }
 }
