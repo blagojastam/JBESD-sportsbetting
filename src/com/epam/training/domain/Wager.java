@@ -5,6 +5,63 @@ import java.time.LocalDateTime;
 
 public class Wager {
     BigDecimal amount;
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public LocalDateTime getTimestampCreated() {
+        return timestampCreated;
+    }
+
+    public void setTimestampCreated(LocalDateTime timestampCreated) {
+        this.timestampCreated = timestampCreated;
+    }
+
+    public Boolean getProcessed() {
+        return processed;
+    }
+
+    public void setProcessed(Boolean processed) {
+        this.processed = processed;
+    }
+
+    public Boolean getWin() {
+        return win;
+    }
+
+    public void setWin(Boolean win) {
+        this.win = win;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
+    }
+
+    public OutcomeOdd getOdd() {
+        return odd;
+    }
+
+    public void setOdd(OutcomeOdd odd) {
+        this.odd = odd;
+    }
+
     LocalDateTime timestampCreated;
     Boolean processed;
     Boolean win;
