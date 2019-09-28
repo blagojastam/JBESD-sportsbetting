@@ -8,7 +8,7 @@ public class Wager {
     LocalDateTime timestampCreated;
     Boolean processed;
     Boolean win;
-    Player owner;
+    Player player;
     Currency currency;
 
     public Wager() {
