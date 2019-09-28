@@ -10,6 +10,7 @@ public class Wager {
     Boolean win;
     Player player;
     Currency currency;
+    OutcomeOdd odd;
 
     public Wager() {
         timestampCreated = LocalDateTime.now();
