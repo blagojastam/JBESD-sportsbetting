@@ -6,4 +6,5 @@ public abstract class SportEvent {
     String title;
     LocalDateTime startDate;
     LocalDateTime endDate;
+    Result result;
 }
