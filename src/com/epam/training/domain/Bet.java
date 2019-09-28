@@ -8,6 +8,10 @@ public class Bet {
     private SportEvent event;
     private List<Outcome> outcomes;
 
+    private Bet() {
+
+    }
+
     public String getDescription() {
         return description;
     }
@@ -38,5 +42,45 @@ public class Bet {
 
     public void setOutcomes(List<Outcome> outcomes) {
         this.outcomes = outcomes;
+    }
+
+    public static class Builder {
+        private String description;
+        private BetType type;
+        private SportEvent event;
+        private List<Outcome> outcomes;
+
+        public Builder(String description) {
+            this.description = description;
+        }
+
+        public Builder withType(BetType type) {
+            this.type = type;
+
+            return this;
+        }
+
+        public Builder withSportEvent(SportEvent event) {
+            this.event = event;
+
+            return this;
+        }
+
+        public Builder withOutcomes(List<Outcome> outcomes) {
+            this.outcomes = outcomes;
+
+            return this;
+        }
+
+        public Bet build() {
+            Bet bet = new Bet();
+
+            bet.description = this.description;
+            bet.type = this.type;
+            bet.event = this.event;
+            bet.outcomes = this.outcomes;
+
+            return bet;
+        }
     }
 }
