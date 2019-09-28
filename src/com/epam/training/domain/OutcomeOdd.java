@@ -10,6 +10,10 @@ public class OutcomeOdd {
     Wager wager;
     Outcome outcome;
 
+    private OutcomeOdd() {
+
+    }
+
     public BigDecimal getValue() {
         return value;
     }
@@ -48,5 +52,52 @@ public class OutcomeOdd {
 
     public void setOutcome(Outcome outcome) {
         this.outcome = outcome;
+    }
+
+    public static class Builder {
+        BigDecimal value;
+        LocalDateTime validFrom;
+        LocalDateTime validUntil;
+        Wager wager;
+        Outcome outcome;
+
+        public Builder(BigDecimal value) {
+            this.value = value;
+        }
+
+        public Builder validFrom(LocalDateTime validFrom) {
+            this.validFrom = validFrom;
+
+            return this;
+        }
+
+        public Builder validUntil(LocalDateTime validUntil) {
+            this.validUntil = validUntil;
+
+            return this;
+        }
+
+        public Builder withWager(Wager wager) {
+            this.wager = wager;
+
+            return this;
+        }
+
+        public Builder withOutcome(Outcome outcome) {
+            this.outcome = outcome;
+
+            return this;
+        }
+
+        public OutcomeOdd build() {
+            OutcomeOdd outcomeOdd = new OutcomeOdd();
+
+            outcomeOdd.validFrom = this.validFrom;
+            outcomeOdd.validUntil = this.validUntil;
+            outcomeOdd.wager = this.wager;
+            outcomeOdd.outcome = this.outcome;
+
+            return outcomeOdd;
+        }
     }
 }
