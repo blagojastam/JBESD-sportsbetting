@@ -1,4 +1,12 @@
 package com.epam.training.domain;
 
-public class Player {
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+public class Player extends User {
+    String name;
+    int accountNumber;
+    BigDecimal balance;
+    LocalDateTime birth;
+    Currency currency;
 }
