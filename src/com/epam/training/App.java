@@ -1,6 +1,6 @@
 package com.epam.training;
 
-import com.epam.training.service.SportsBetingServiceImpl;
+import com.epam.training.service.SportsBettingServiceImpl;
 import com.epam.training.service.SportsBettingService;
 import com.epam.training.view.View;
 import com.epam.training.view.ViewImpl;
@@ -11,7 +11,7 @@ public class App {
     View view;
 
     public App(SportsBettingService service, View view) {
-        this.service = new SportsBetingServiceImpl();
+        this.service = new SportsBettingServiceImpl();
         this.view = new ViewImpl();
     }
 

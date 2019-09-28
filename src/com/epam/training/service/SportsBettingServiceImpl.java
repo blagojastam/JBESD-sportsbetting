@@ -6,7 +6,7 @@ import com.epam.training.domain.Wager;
 
 import java.util.List;
 
-public class SportsBetingServiceImpl implements SportsBettingService {
+public class SportsBettingServiceImpl implements SportsBettingService {
     Player currentPlayer;
     List<SportEvent> sportEvents;
     List<Wager> wagers;
