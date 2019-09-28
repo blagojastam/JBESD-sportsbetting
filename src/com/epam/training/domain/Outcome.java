@@ -7,6 +7,10 @@ public class Outcome {
     List<OutcomeOdd> outcomeOdds;
     Bet bet;
 
+    private Outcome() {
+
+    }
+
     public static class Builder {
         String description;
         List<OutcomeOdd> outcomeOdds;
