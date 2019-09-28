@@ -1,4 +1,4 @@
-package com.epam.training;
+package com.epam.training.view;
 
 import com.epam.training.domain.OutcomeOdd;
 import com.epam.training.domain.Player;
