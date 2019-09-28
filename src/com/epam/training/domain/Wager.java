@@ -5,6 +5,16 @@ import java.time.LocalDateTime;
 
 public class Wager {
     BigDecimal amount;
+    LocalDateTime timestampCreated;
+    Boolean processed;
+    Boolean win;
+    Player player;
+    Currency currency;
+    OutcomeOdd odd;
+
+    public Wager() {
+        timestampCreated = LocalDateTime.now();
+    }
 
     public BigDecimal getAmount() {
         return amount;
@@ -60,16 +70,5 @@ public class Wager {
 
     public void setOdd(OutcomeOdd odd) {
         this.odd = odd;
-    }
-
-    LocalDateTime timestampCreated;
-    Boolean processed;
-    Boolean win;
-    Player player;
-    Currency currency;
-    OutcomeOdd odd;
-
-    public Wager() {
-        timestampCreated = LocalDateTime.now();
     }
 }
