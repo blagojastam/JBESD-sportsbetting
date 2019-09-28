@@ -51,11 +51,11 @@ public abstract class SportEvent {
     }
 
     public static class Builder {
-        protected String title;
-        protected LocalDateTime startDate;
-        protected LocalDateTime endDate;
-        protected Result result;
-        protected List<Bet> bets;
+        private String title;
+        private LocalDateTime startDate;
+        private LocalDateTime endDate;
+        private Result result;
+        private List<Bet> bets;
 
         public Builder(String title) {
             this.title = title;
