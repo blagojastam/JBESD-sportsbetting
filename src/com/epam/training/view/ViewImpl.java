@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+@SuppressWarnings("Duplicates")
 public class ViewImpl implements View {
     @Override
     public Player readPlayerData() {
@@ -117,7 +118,9 @@ public class ViewImpl implements View {
 
     @Override
     public BigDecimal readWagerAmount() {
-        return null;
+        Scanner reader = new Scanner(System.in);
+        System.out.print("What amount would you like to wager? ");
+        return new BigDecimal(reader.next());
     }
 
     @Override
@@ -127,7 +130,8 @@ public class ViewImpl implements View {
 
     @Override
     public void printNotEnoughBalance(Player player) {
-
+        System.out.println("There is not enough balance on the account");
+        printBalance(player);
     }
 
     @Override
