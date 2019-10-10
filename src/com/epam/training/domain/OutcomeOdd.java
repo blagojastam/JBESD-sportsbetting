@@ -92,6 +92,7 @@ public class OutcomeOdd {
         public OutcomeOdd build() {
             OutcomeOdd outcomeOdd = new OutcomeOdd();
 
+            outcomeOdd.value = this.value;
             outcomeOdd.validFrom = this.validFrom;
             outcomeOdd.validUntil = this.validUntil;
             outcomeOdd.wager = this.wager;
