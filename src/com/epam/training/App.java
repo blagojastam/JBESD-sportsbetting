@@ -44,8 +44,7 @@ public class App {
             }
         }
 
-        System.out.println("Press ENTER to quit.");
-        scanner.next();
+        System.out.println("Bye bye. ");
     }
 
     void createPlayer() {
@@ -81,11 +80,11 @@ public class App {
     }
 
     void calculateResults() {
-
+        service.calculateResults();
     }
 
     void printResults () {
-
+        view.printResults(service.findPlayer(), service.findAllWagers());
     }
 
     // Helper method to set up dummy data.
@@ -145,7 +144,7 @@ public class App {
 
         Bet bet4 = new Bet.Builder("Barcelona wins.")
                 .withType(BetType.WINNER)
-                .withSportEvent(sportEvent1)
+                .withSportEvent(sportEvent2)
                 .withOutcomes(outcomes4)
                 .build();
 

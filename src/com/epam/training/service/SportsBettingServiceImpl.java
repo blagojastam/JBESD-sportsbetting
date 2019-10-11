@@ -2,6 +2,7 @@ package com.epam.training.service;
 
 import com.epam.training.domain.*;
 
+import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -37,6 +38,22 @@ public class SportsBettingServiceImpl implements SportsBettingService {
 
     @Override
     public void calculateResults() {
-        // TODO : Implement logic
+
+        for (Wager wager : wagers) {
+            List<Outcome> winnerOutcomes = wager.getOdd().getOutcome().getBet().getEvent().getResult().getWinnerOutcomes();
+            Outcome wageredOutcome = wager.getOdd().getOutcome();
+            if (winnerOutcomes.contains(wageredOutcome)) {
+                BigDecimal oldPlayerBalance = currentPlayer.getBalance();
+                List<OutcomeOdd> outcomeOdds = wageredOutcome.getOutcomeOdds();
+                OutcomeOdd last = outcomeOdds.get(outcomeOdds.size()-1); // only the most recent outcome is considered
+                BigDecimal coefficient = last.getValue();
+                BigDecimal wagerAmount = last.getWager().getAmount();
+                BigDecimal winnings = wagerAmount.multiply(coefficient);
+                BigDecimal newPlayerBalance = oldPlayerBalance.add(winnings);
+                currentPlayer.setBalance(newPlayerBalance);
+                wager.setWin(true);
+            }
+            wager.setProcessed(true);
+        }
     }
 }

@@ -1,14 +1,14 @@
 package com.epam.training.view;
 
 import com.epam.training.domain.*;
+import com.epam.training.domain.Currency;
 
 import java.math.BigDecimal;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @SuppressWarnings("Duplicates")
 public class ViewImpl implements View {
@@ -154,6 +154,13 @@ public class ViewImpl implements View {
 
     @Override
     public void printResults(Player player, List<Wager> wagers) {
-
+        List<Wager> playerWagers = wagers.stream().filter(
+                wager -> wager.getPlayer() == player)
+                .collect(Collectors.toList());
+        for (Wager wager : playerWagers) {
+            System.out.println("Wager: " + wager.getOdd().getOutcome().getDescription() +
+                    "\nAmount: " + wager.getAmount() +
+                    "\nWon: " +wager.getWin());
+        }
     }
 }
