@@ -1,8 +1,6 @@
 package com.epam.training.service;
 
-import com.epam.training.domain.Player;
-import com.epam.training.domain.SportEvent;
-import com.epam.training.domain.Wager;
+import com.epam.training.domain.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -10,7 +8,7 @@ import java.util.List;
 public class SportsBettingServiceImpl implements SportsBettingService {
     Player currentPlayer;
     List<SportEvent> sportEvents = new LinkedList<>();
-    List<Wager> wagers;
+    List<Wager> wagers = new LinkedList<>();
 
     @Override
     public void savePlayer(Player player) {

@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 @SuppressWarnings("Duplicates")
 public class App {
@@ -29,8 +30,22 @@ public class App {
 
     public void play() {
         view.printWelcomeMessage();
-        OutcomeOdd selected = view.selectOutcomeOdd(service.findAllSportEvents());
+        Scanner scanner = new Scanner(System.in);
+        String choice = "";
+        while (!choice.equals("q")) {
+            System.out.println("1. Place a bet");
+            System.out.println("q. Calculate results and quit");
+            choice = scanner.next();
+            if (choice.equals("1")) {
+                doBetting();
+            } else if (choice.equals("q")) {
+                calculateResults();
+                printResults();
+            }
+        }
 
+        System.out.println("Press ENTER to quit.");
+        scanner.next();
     }
 
     void createPlayer() {
@@ -39,6 +54,29 @@ public class App {
     }
 
     void doBetting() {
+        Player currentPLayer = service.findPlayer();
+
+        OutcomeOdd selectedOutcomeOdd = view.selectOutcomeOdd(service.findAllSportEvents());
+        BigDecimal wagerAmount = view.readWagerAmount();
+
+        Wager newWager = new Wager();
+        selectedOutcomeOdd.setWager(newWager);
+        newWager.setAmount(wagerAmount);
+        newWager.setCurrency(currentPLayer.getCurrency());
+        newWager.setOdd(selectedOutcomeOdd);
+        newWager.setPlayer(currentPLayer);
+        newWager.setProcessed(false);
+        newWager.setWin(false);
+
+        BigDecimal playerBalance = currentPLayer.getBalance();
+        if (playerBalance.compareTo(wagerAmount) == -1) {
+            view.printNotEnoughBalance(currentPLayer);
+        } else {
+            service.saveWager(newWager);
+            view.printSavedWager(newWager);
+            currentPLayer.setBalance(playerBalance.subtract(wagerAmount));
+            view.printBalance(currentPLayer);
+        }
 
     }
 
@@ -51,7 +89,7 @@ public class App {
     }
 
     // Helper method to set up dummy data.
-    void initialize() {
+     void initialize() {
 
         // Simulate JPA linker tables
         Result result1 = new Result();

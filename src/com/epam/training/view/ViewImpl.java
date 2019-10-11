@@ -16,11 +16,11 @@ public class ViewImpl implements View {
     public Player readPlayerData() {
         Scanner reader = new Scanner(System.in);
 
-        System.out.println("Before we begin, can we please get your details? ");
+        System.out.println("\nBefore we begin, can we please get your details? ");
         System.out.print("Your name: ");
         String fullName = reader.nextLine();
 
-        System.out.println("What kind of currency would you like to deposit? " +
+        System.out.println("\nWhat kind of currency would you like to deposit? " +
                 "\n1. HUF" +
                 "\n2. EUR" +
                 "\n3. USD");
@@ -33,10 +33,10 @@ public class ViewImpl implements View {
             default: currency = Currency.HUF; break;
         }
 
-        System.out.print("What amount would you like to deposit? ");
+        System.out.print("\nWhat amount would you like to deposit? ");
         BigDecimal amount = new BigDecimal(reader.next());
 
-        System.out.print("Your birthdate: [DD-MM-YYYY] ");
+        System.out.print("\nYour birthdate: [DD-MM-YYYY] ");
         String birthdateString = reader.next();
         String[] birthdateData = birthdateString.split("-");
         LocalDateTime birthdate = LocalDateTime.of(
@@ -59,12 +59,13 @@ public class ViewImpl implements View {
 
     @Override
     public void printWelcomeMessage() {
-        System.out.println("Welcome to the sports betting application. Our code might be spaghetti, but no worries," +
+        System.out.println("\nWelcome to the sports betting application. Our code might be spaghetti, but no worries," +
                 " we will still take your money!");
     }
 
     @Override
     public void printBalance(Player player) {
+        System.out.println();
         String currencySymbol;
         switch (player.getCurrency()) {
             case HUF:
@@ -88,7 +89,7 @@ public class ViewImpl implements View {
 
     @Override
     public void printOutcomeOdds(List<SportEvent> sportEvents) {
-        System.out.println("----- Listing Outcome Odds -----");
+        System.out.println("\n----- Listing Outcome Odds -----");
         for (SportEvent sportEvent : sportEvents) {
             for (Bet bet : sportEvent.getBets()) {
                 for (Outcome outcome: bet.getOutcomes()) {
@@ -106,7 +107,7 @@ public class ViewImpl implements View {
 
     @Override
     public OutcomeOdd selectOutcomeOdd(List<SportEvent> sportEvents) {
-        System.out.println("Please choose an Outcome Odd.");
+        System.out.println("\nPlease choose an Outcome Odd.");
 
         int index = 1;
         HashMap<Integer, OutcomeOdd> map = new HashMap<>();
@@ -116,8 +117,8 @@ public class ViewImpl implements View {
                     for (OutcomeOdd outcomeOdd : outcome.getOutcomeOdds()) {
                         map.put(index, outcomeOdd);
                         System.out.println(index++ + ". " + outcomeOdd.getOutcome().getDescription() +
-                                " Odds: " + outcomeOdd.getValue());
-
+                                "\n   Odds: " + outcomeOdd.getValue() +
+                                "\n   Valid between: " + outcomeOdd.getValidFrom() + " - " + outcomeOdd.getValidUntil());
                     }
                 }
             }
@@ -132,18 +133,22 @@ public class ViewImpl implements View {
     @Override
     public BigDecimal readWagerAmount() {
         Scanner reader = new Scanner(System.in);
-        System.out.print("What amount would you like to wager? ");
+        System.out.print("\nWhat amount would you like to wager? ");
         return new BigDecimal(reader.next());
     }
 
     @Override
     public void printSavedWager(Wager wager) {
-
+        System.out.println("\n----- Wager details -----" +
+                "\nPlayer name: " + wager.getPlayer().getName() +
+                "\nWager amount: " + wager.getAmount() + wager.getCurrency() +
+                "\nWager odd: " + wager.getOdd().getValue() +
+                "\nWager description: " + wager.getOdd().getOutcome().getDescription());
     }
 
     @Override
     public void printNotEnoughBalance(Player player) {
-        System.out.println("There is not enough balance on the account");
+        System.out.println("\nThere is not enough balance on the account");
         printBalance(player);
     }
 
