@@ -65,13 +65,6 @@ public class ViewImpl implements View {
 
     @Override
     public void printBalance(Player player) {
-//        System.out.println("----- Player details -----");
-//        System.out.println("Name: " + player.getName());
-//        System.out.println("Email address: " + player.getEmail());
-//        System.out.println("Birthdate: " + player.getBirth());
-//        System.out.println("Account number: " + player.getAccountNumber());
-//        System.out.println("Account currency: " + player.getCurrency());
-
         String currencySymbol;
         switch (player.getCurrency()) {
             case HUF:
