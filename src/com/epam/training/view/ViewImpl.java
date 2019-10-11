@@ -103,7 +103,8 @@ public class ViewImpl implements View {
                 for (Outcome outcome: bet.getOutcomes()) {
                     for (OutcomeOdd outcomeOdd : outcome.getOutcomeOdds()) {
                         map.put(index, outcomeOdd);
-                        System.out.println(index++ + ". Outcome odd Outcome: " + outcomeOdd.getOutcome());
+                        System.out.println(index++ + ". " + outcomeOdd.getOutcome().getDescription() +
+                                " Odds: " + outcomeOdd.getValue());
 
                     }
                 }
