@@ -65,13 +65,32 @@ public class ViewImpl implements View {
 
     @Override
     public void printBalance(Player player) {
-        System.out.println("----- Player details -----");
-        System.out.println("Name: " + player.getName());
-        System.out.println("Email address: " + player.getEmail());
-        System.out.println("Birthdate: " + player.getBirth());
-        System.out.println("Account number: " + player.getAccountNumber());
-        System.out.println("Account currency: " + player.getCurrency());
-        System.out.println("Account balance: " + player.getBalance());
+//        System.out.println("----- Player details -----");
+//        System.out.println("Name: " + player.getName());
+//        System.out.println("Email address: " + player.getEmail());
+//        System.out.println("Birthdate: " + player.getBirth());
+//        System.out.println("Account number: " + player.getAccountNumber());
+//        System.out.println("Account currency: " + player.getCurrency());
+
+        String currencySymbol;
+        switch (player.getCurrency()) {
+            case HUF:
+                currencySymbol = "HUF";
+                System.out.println("Account balance: " + player.getBalance() + currencySymbol);
+                break;
+            case EUR:
+                currencySymbol = "€";
+                System.out.println("Account balance: " + player.getBalance() + currencySymbol);
+                break;
+            case USD:
+                currencySymbol = "$";
+                System.out.println("Account balance: " + currencySymbol + player.getBalance());
+                break;
+            default:
+                currencySymbol = "HUF";
+                System.out.println("Account balance: " + player.getBalance() + currencySymbol);
+                break;
+        }
     }
 
     @Override
