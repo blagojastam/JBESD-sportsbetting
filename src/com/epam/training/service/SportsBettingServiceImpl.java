@@ -29,7 +29,7 @@ public class SportsBettingServiceImpl implements SportsBettingService {
 
     @Override
     public void saveWager(Wager wager) {
-        wagers.add(wager); // TODO: Change creational pattern
+        wagers.add(wager);
     }
 
     @Override
