@@ -7,6 +7,17 @@
     <groupId>com.epam.training</groupId>
     <artifactId>sportsbetting</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <name>Sports Betting Application</name>
+    <description>NIK - Java-based enterprise software development</description>
+
+    <contributors>
+        <contributor>
+            <name>Blagoja Stamatovski</name>
+            <organization>OE - NIK</organization>
+            <email>stamatovski.blagoja@nik.uni-obuda.hu</email>
+            <url>users.nik.uni-obuda.hu/blagoja</url>
+        </contributor>
+    </contributors>
 
     <properties>
         <maven.compiler.source>10</maven.compiler.source>
