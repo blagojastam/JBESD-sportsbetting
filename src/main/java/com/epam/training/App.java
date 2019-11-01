@@ -53,30 +53,35 @@ public class App {
     }
 
     void doBetting() {
-        Player currentPLayer = service.findPlayer();
+        Player currentPlayer = service.findPlayer();
 
         OutcomeOdd selectedOutcomeOdd = view.selectOutcomeOdd(service.findAllSportEvents());
-        BigDecimal wagerAmount = view.readWagerAmount();
+        BigDecimal wagerAmount;
+        BigDecimal playerBalance = currentPlayer.getBalance();
+
+        boolean validAmountGiven = false;
+        do {
+            wagerAmount = view.readWagerAmount();
+            if (playerBalance.compareTo(wagerAmount) == -1) {
+                view.printNotEnoughBalance(currentPlayer);
+            } else {
+                validAmountGiven = true;
+            }
+        } while (!validAmountGiven);
 
         Wager newWager = new Wager();
         selectedOutcomeOdd.setWager(newWager);
         newWager.setAmount(wagerAmount);
-        newWager.setCurrency(currentPLayer.getCurrency());
+        newWager.setCurrency(currentPlayer.getCurrency());
         newWager.setOdd(selectedOutcomeOdd);
-        newWager.setPlayer(currentPLayer);
+        newWager.setPlayer(currentPlayer);
         newWager.setProcessed(false);
         newWager.setWin(false);
 
-        BigDecimal playerBalance = currentPLayer.getBalance();
-        if (playerBalance.compareTo(wagerAmount) == -1) {
-            view.printNotEnoughBalance(currentPLayer);
-        } else {
-            service.saveWager(newWager);
-            view.printSavedWager(newWager);
-            currentPLayer.setBalance(playerBalance.subtract(wagerAmount));
-            view.printBalance(currentPLayer);
-        }
-
+        service.saveWager(newWager);
+        view.printSavedWager(newWager);
+        currentPlayer.setBalance(playerBalance.subtract(wagerAmount));
+        view.printBalance(currentPlayer);
     }
 
     void calculateResults() {
