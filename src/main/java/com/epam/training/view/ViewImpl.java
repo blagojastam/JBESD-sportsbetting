@@ -105,25 +105,35 @@ public class ViewImpl implements View {
 
     @Override
     public OutcomeOdd selectOutcomeOdd(List<SportEvent> sportEvents) {
-        System.out.println("\nPlease choose an Outcome Odd.");
-
-        int index = 1;
         HashMap<Integer, OutcomeOdd> map = new HashMap<>();
-        for (SportEvent sportEvent : sportEvents) {
-            for (Bet bet : sportEvent.getBets()) {
-                for (Outcome outcome: bet.getOutcomes()) {
-                    for (OutcomeOdd outcomeOdd : outcome.getOutcomeOdds()) {
-                        map.put(index, outcomeOdd);
-                        System.out.println(index++ + ". " + outcomeOdd.getOutcome().getDescription() +
-                                "\n   Odds: " + outcomeOdd.getValue() +
-                                "\n   Valid between: " + outcomeOdd.getValidFrom() + " - " + outcomeOdd.getValidUntil());
+        int key = 0;
+        boolean isChoiceInvalid = true;
+
+        while (isChoiceInvalid) {
+            System.out.println("\nPlease choose an Outcome Odd.");
+
+            int index = 1;
+            for (SportEvent sportEvent : sportEvents) {
+                for (Bet bet : sportEvent.getBets()) {
+                    for (Outcome outcome: bet.getOutcomes()) {
+                        for (OutcomeOdd outcomeOdd : outcome.getOutcomeOdds()) {
+                            map.put(index, outcomeOdd);
+                            System.out.println(index++ + ". " + outcomeOdd.getOutcome().getDescription() +
+                                    "\n   Odds: " + outcomeOdd.getValue() +
+                                    "\n   Valid between: " + outcomeOdd.getValidFrom() + " - " + outcomeOdd.getValidUntil());
+                        }
                     }
                 }
             }
-        }
 
-        Scanner reader = new Scanner(System.in);
-        int key = reader.nextInt();
+            Scanner reader = new Scanner(System.in);
+            key = reader.nextInt();
+            if (map.containsKey(key)) {
+                isChoiceInvalid = false;
+            } else {
+                System.out.println("Please select a valid Outcome Odd. ");
+            }
+        }
 
         return map.get(key);
     }
