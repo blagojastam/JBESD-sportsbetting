@@ -20,31 +20,38 @@ public class ViewImpl implements View {
         System.out.print("Your name: ");
         String fullName = reader.nextLine();
 
-        System.out.println("\nWhat kind of currency would you like to deposit? " +
-                "\n1. HUF" +
-                "\n2. EUR" +
-                "\n3. USD");
-        int currencyChoice = Integer.parseInt(reader.next());
-        Currency currency;
-        switch (currencyChoice) {
-            case 1: currency = Currency.HUF; break;
-            case 2: currency = Currency.EUR; break;
-            case 3: currency = Currency.USD; break;
-            default: currency = Currency.HUF; break;
+        System.out.println("\nWhat kind of currency would you like to deposit? (HUF, EUR, USD). " +
+                "Please, write in the 3 character currency code.");
+        String currencyChoice = reader.next();
+        Currency currency = Currency.valueOf(currencyChoice.toUpperCase());
+
+        BigDecimal amount;
+        boolean validAmountGiven = false;
+        do {
+            System.out.print("\nWhat amount would you like to deposit to your bank account? ");
+            amount = new BigDecimal(reader.next());
+            if (!(amount.compareTo(BigDecimal.ZERO) == 1)) {
+                System.out.print("Please give a value greater than 0. ");
+            } else {
+                validAmountGiven = true;
+            }
+        } while (!validAmountGiven);
+
+        LocalDateTime birthdate;
+        boolean defaultBirthdate = true;
+        if (!defaultBirthdate){
+            System.out.print("\nYour birthdate: [DD-MM-YYYY] ");
+            String birthdateString = reader.next();
+            String[] birthdateData = birthdateString.split("-");
+            birthdate = LocalDateTime.of(
+                    Integer.parseInt(birthdateData[2]),
+                    Integer.parseInt(birthdateData[1]),
+                    Integer.parseInt(birthdateData[0]),
+                    13,
+                    37);
+        } else {
+            birthdate = LocalDateTime.now();
         }
-
-        System.out.print("\nWhat amount would you like to deposit? ");
-        BigDecimal amount = new BigDecimal(reader.next());
-
-        System.out.print("\nYour birthdate: [DD-MM-YYYY] ");
-        String birthdateString = reader.next();
-        String[] birthdateData = birthdateString.split("-");
-        LocalDateTime birthdate = LocalDateTime.of(
-                Integer.parseInt(birthdateData[2]),
-                Integer.parseInt(birthdateData[1]),
-                Integer.parseInt(birthdateData[0]),
-                13,
-                37);
 
         Random r = new Random();
         int accountNumber = r.nextInt(3000000);
@@ -107,25 +114,35 @@ public class ViewImpl implements View {
 
     @Override
     public OutcomeOdd selectOutcomeOdd(List<SportEvent> sportEvents) {
-        System.out.println("\nPlease choose an Outcome Odd.");
-
-        int index = 1;
         HashMap<Integer, OutcomeOdd> map = new HashMap<>();
-        for (SportEvent sportEvent : sportEvents) {
-            for (Bet bet : sportEvent.getBets()) {
-                for (Outcome outcome: bet.getOutcomes()) {
-                    for (OutcomeOdd outcomeOdd : outcome.getOutcomeOdds()) {
-                        map.put(index, outcomeOdd);
-                        System.out.println(index++ + ". " + outcomeOdd.getOutcome().getDescription() +
-                                "\n   Odds: " + outcomeOdd.getValue() +
-                                "\n   Valid between: " + outcomeOdd.getValidFrom() + " - " + outcomeOdd.getValidUntil());
+        int key = 0;
+        boolean isChoiceInvalid = true;
+
+        while (isChoiceInvalid) {
+            System.out.println("\nPlease choose an Outcome Odd.");
+
+            int index = 1;
+            for (SportEvent sportEvent : sportEvents) {
+                for (Bet bet : sportEvent.getBets()) {
+                    for (Outcome outcome: bet.getOutcomes()) {
+                        for (OutcomeOdd outcomeOdd : outcome.getOutcomeOdds()) {
+                            map.put(index, outcomeOdd);
+                            System.out.println(index++ + ". " + outcomeOdd.getOutcome().getDescription() +
+                                    "\n   Odds: " + outcomeOdd.getValue() +
+                                    "\n   Valid between: " + outcomeOdd.getValidFrom() + " - " + outcomeOdd.getValidUntil());
+                        }
                     }
                 }
             }
-        }
 
-        Scanner reader = new Scanner(System.in);
-        int key = reader.nextInt();
+            Scanner reader = new Scanner(System.in);
+            key = reader.nextInt();
+            if (map.containsKey(key)) {
+                isChoiceInvalid = false;
+            } else {
+                System.out.println("Please select a valid Outcome Odd. ");
+            }
+        }
 
         return map.get(key);
     }
@@ -133,8 +150,20 @@ public class ViewImpl implements View {
     @Override
     public BigDecimal readWagerAmount() {
         Scanner reader = new Scanner(System.in);
-        System.out.print("\nWhat amount would you like to wager? ");
-        return new BigDecimal(reader.next());
+        BigDecimal amount;
+        boolean validAmountGiven = false;
+
+        do {
+            System.out.print("\nWhat amount would you like to wager? ");
+            amount = new BigDecimal(reader.next());
+            if (!(amount.compareTo(BigDecimal.ZERO) == 1)) {
+                System.out.print("Please give a value greater than 0. ");
+            } else {
+                validAmountGiven = true;
+            }
+        } while (!validAmountGiven);
+
+        return amount;
     }
 
     @Override
