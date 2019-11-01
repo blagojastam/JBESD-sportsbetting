@@ -25,8 +25,17 @@ public class ViewImpl implements View {
         String currencyChoice = reader.next();
         Currency currency = Currency.valueOf(currencyChoice.toUpperCase());
 
-        System.out.print("\nWhat amount would you like to deposit to your bank account? ");
-        BigDecimal amount = new BigDecimal(reader.next());
+        BigDecimal amount;
+        boolean validAmountGiven = false;
+        do {
+            System.out.print("\nWhat amount would you like to deposit to your bank account? ");
+            amount = new BigDecimal(reader.next());
+            if (!(amount.compareTo(BigDecimal.ZERO) == 1)) {
+                System.out.print("Please give a value greater than 0. ");
+            } else {
+                validAmountGiven = true;
+            }
+        } while (!validAmountGiven);
 
         LocalDateTime birthdate;
         boolean defaultBirthdate = true;
