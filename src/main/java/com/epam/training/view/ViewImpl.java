@@ -33,7 +33,7 @@ public class ViewImpl implements View {
             default: currency = Currency.HUF; break;
         }
 
-        System.out.print("\nWhat amount would you like to deposit? ");
+        System.out.print("\nWhat amount would you like to deposit to your bank account? ");
         BigDecimal amount = new BigDecimal(reader.next());
 
         System.out.print("\nYour birthdate: [DD-MM-YYYY] ");
