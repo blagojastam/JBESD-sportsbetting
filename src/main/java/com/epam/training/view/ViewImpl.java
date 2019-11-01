@@ -28,15 +28,21 @@ public class ViewImpl implements View {
         System.out.print("\nWhat amount would you like to deposit to your bank account? ");
         BigDecimal amount = new BigDecimal(reader.next());
 
-        System.out.print("\nYour birthdate: [DD-MM-YYYY] ");
-        String birthdateString = reader.next();
-        String[] birthdateData = birthdateString.split("-");
-        LocalDateTime birthdate = LocalDateTime.of(
-                Integer.parseInt(birthdateData[2]),
-                Integer.parseInt(birthdateData[1]),
-                Integer.parseInt(birthdateData[0]),
-                13,
-                37);
+        LocalDateTime birthdate;
+        boolean defaultBirthdate = true;
+        if (!defaultBirthdate){
+            System.out.print("\nYour birthdate: [DD-MM-YYYY] ");
+            String birthdateString = reader.next();
+            String[] birthdateData = birthdateString.split("-");
+            birthdate = LocalDateTime.of(
+                    Integer.parseInt(birthdateData[2]),
+                    Integer.parseInt(birthdateData[1]),
+                    Integer.parseInt(birthdateData[0]),
+                    13,
+                    37);
+        } else {
+            birthdate = LocalDateTime.now();
+        }
 
         Random r = new Random();
         int accountNumber = r.nextInt(3000000);
