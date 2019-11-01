@@ -150,8 +150,20 @@ public class ViewImpl implements View {
     @Override
     public BigDecimal readWagerAmount() {
         Scanner reader = new Scanner(System.in);
-        System.out.print("\nWhat amount would you like to wager? ");
-        return new BigDecimal(reader.next());
+        BigDecimal amount;
+        boolean validAmountGiven = false;
+
+        do {
+            System.out.print("\nWhat amount would you like to wager? ");
+            amount = new BigDecimal(reader.next());
+            if (!(amount.compareTo(BigDecimal.ZERO) == 1)) {
+                System.out.print("Please give a value greater than 0. ");
+            } else {
+                validAmountGiven = true;
+            }
+        } while (!validAmountGiven);
+
+        return amount;
     }
 
     @Override
