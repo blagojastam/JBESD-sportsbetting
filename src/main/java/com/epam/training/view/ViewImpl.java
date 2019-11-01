@@ -20,18 +20,10 @@ public class ViewImpl implements View {
         System.out.print("Your name: ");
         String fullName = reader.nextLine();
 
-        System.out.println("\nWhat kind of currency would you like to deposit? " +
-                "\n1. HUF" +
-                "\n2. EUR" +
-                "\n3. USD");
-        int currencyChoice = Integer.parseInt(reader.next());
-        Currency currency;
-        switch (currencyChoice) {
-            case 1: currency = Currency.HUF; break;
-            case 2: currency = Currency.EUR; break;
-            case 3: currency = Currency.USD; break;
-            default: currency = Currency.HUF; break;
-        }
+        System.out.println("\nWhat kind of currency would you like to deposit? (HUF, EUR, USD). " +
+                "Please, write in the 3 character currency code.");
+        String currencyChoice = reader.next();
+        Currency currency = Currency.valueOf(currencyChoice.toUpperCase());
 
         System.out.print("\nWhat amount would you like to deposit to your bank account? ");
         BigDecimal amount = new BigDecimal(reader.next());
