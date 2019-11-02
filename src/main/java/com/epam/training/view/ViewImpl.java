@@ -62,12 +62,16 @@ public class ViewImpl implements View {
         Random r = new Random();
         int accountNumber = r.nextInt(3000000);
 
-        return new Player.Builder(fullName)
+        Player newPlayer = new Player.Builder(fullName)
                 .withAccountNumber(accountNumber)
                 .withAccountBalance(amount)
                 .withBirthDate(birthdate)
                 .withCurrency(currency)
                 .build();
+
+        log.info("Player " + newPlayer + " created.");
+
+        return newPlayer;
     }
 
     @Override
