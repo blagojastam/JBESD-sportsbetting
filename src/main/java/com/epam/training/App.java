@@ -3,6 +3,7 @@ package com.epam.training;
 import com.epam.training.domain.*;
 import com.epam.training.service.*;
 import com.epam.training.view.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+@Slf4j
 @Component
 @SuppressWarnings("Duplicates")
 public class App {
@@ -61,6 +63,7 @@ public class App {
             wagerAmount = view.readWagerAmount();
             if (playerBalance.compareTo(wagerAmount) == -1) {
                 view.printNotEnoughBalance(currentPlayer);
+                log.warn("Player tried to bet with more funds than in their account. ");
             } else {
                 validAmountGiven = true;
             }
