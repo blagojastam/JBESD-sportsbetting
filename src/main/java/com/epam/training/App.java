@@ -21,13 +21,6 @@ public class App {
         this.view = view;
     }
 
-    public static void main(String[] args) {
-        App app = new App(new SportsBettingServiceImpl(), new ViewImpl());
-        app.initialize();
-        app.createPlayer();
-        app.play();
-    }
-
     public void play() {
         view.printWelcomeMessage();
         Scanner scanner = new Scanner(System.in);
