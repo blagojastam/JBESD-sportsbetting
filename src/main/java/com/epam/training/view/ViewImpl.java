@@ -131,6 +131,7 @@ public class ViewImpl implements View {
 
         while (isChoiceInvalid) {
             System.out.println("\nPlease choose an Outcome Odd.");
+            map = new HashMap<>();
 
             int index = 1;
             for (SportEvent sportEvent : sportEvents) {
