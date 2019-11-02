@@ -1,11 +1,13 @@
 package com.epam.training.service;
 
 import com.epam.training.domain.*;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
+@Component
 public class SportsBettingServiceImpl implements SportsBettingService {
     Player currentPlayer;
     List<SportEvent> sportEvents = new LinkedList<>();

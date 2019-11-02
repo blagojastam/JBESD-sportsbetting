@@ -2,6 +2,7 @@ package com.epam.training.view;
 
 import com.epam.training.domain.*;
 import com.epam.training.domain.Currency;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
@@ -10,6 +11,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Component
 @SuppressWarnings("Duplicates")
 public class ViewImpl implements View {
     @Override

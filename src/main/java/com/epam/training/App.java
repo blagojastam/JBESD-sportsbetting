@@ -3,6 +3,8 @@ package com.epam.training;
 import com.epam.training.domain.*;
 import com.epam.training.service.*;
 import com.epam.training.view.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -10,12 +12,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+@Component
 @SuppressWarnings("Duplicates")
 public class App {
 
     private SportsBettingService service;
     private View view;
 
+    @Autowired
     public App(SportsBettingService service, View view) {
         this.service = service;
         this.view = view;
