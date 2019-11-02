@@ -2,6 +2,7 @@ package com.epam.training.view;
 
 import com.epam.training.domain.*;
 import com.epam.training.domain.Currency;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -11,6 +12,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Slf4j
 @Component
 @SuppressWarnings("Duplicates")
 public class ViewImpl implements View {
@@ -34,6 +36,7 @@ public class ViewImpl implements View {
             amount = new BigDecimal(reader.next());
             if (!(amount.compareTo(BigDecimal.ZERO) == 1)) {
                 System.out.print("Please give a value greater than 0. ");
+                log.warn("User gave value less than or equal to 0. ");
             } else {
                 validAmountGiven = true;
             }
@@ -42,6 +45,7 @@ public class ViewImpl implements View {
         LocalDateTime birthdate;
         boolean defaultBirthdate = true;
         if (!defaultBirthdate){
+            log.info("Using default birthdate. ");
             System.out.print("\nYour birthdate: [DD-MM-YYYY] ");
             String birthdateString = reader.next();
             String[] birthdateData = birthdateString.split("-");
@@ -117,6 +121,7 @@ public class ViewImpl implements View {
     @Override
     public OutcomeOdd selectOutcomeOdd(List<SportEvent> sportEvents) {
         HashMap<Integer, OutcomeOdd> map = new HashMap<>();
+        Scanner reader = new Scanner(System.in);
         int key = 0;
         boolean isChoiceInvalid = true;
 
@@ -137,12 +142,12 @@ public class ViewImpl implements View {
                 }
             }
 
-            Scanner reader = new Scanner(System.in);
             key = reader.nextInt();
             if (map.containsKey(key)) {
                 isChoiceInvalid = false;
             } else {
                 System.out.println("Please select a valid Outcome Odd. ");
+                log.warn("User selected invalid Outcome Odd. ");
             }
         }
 
@@ -160,6 +165,7 @@ public class ViewImpl implements View {
             amount = new BigDecimal(reader.next());
             if (!(amount.compareTo(BigDecimal.ZERO) == 1)) {
                 System.out.print("Please give a value greater than 0. ");
+                log.warn("User gave value less than or equal to 0. ");
             } else {
                 validAmountGiven = true;
             }
