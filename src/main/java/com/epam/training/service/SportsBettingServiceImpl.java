@@ -1,12 +1,14 @@
 package com.epam.training.service;
 
 import com.epam.training.domain.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
+@Slf4j
 @Component
 public class SportsBettingServiceImpl implements SportsBettingService {
     Player currentPlayer;
@@ -16,6 +18,7 @@ public class SportsBettingServiceImpl implements SportsBettingService {
     @Override
     public void savePlayer(Player player) {
         this.currentPlayer = player;
+        log.info("Player " + player + " saved.");
     }
 
     @Override
@@ -31,6 +34,7 @@ public class SportsBettingServiceImpl implements SportsBettingService {
     @Override
     public void saveWager(Wager wager) {
         wagers.add(wager);
+        log.info("Wager " + wager + " saved.");
     }
 
     @Override
@@ -56,6 +60,7 @@ public class SportsBettingServiceImpl implements SportsBettingService {
                 wager.setWin(true);
             }
             wager.setProcessed(true);
+            log.info("Wager " + wager + " processed.");
         }
     }
 }
