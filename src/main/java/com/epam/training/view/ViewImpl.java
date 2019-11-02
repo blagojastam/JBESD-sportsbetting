@@ -124,13 +124,14 @@ public class ViewImpl implements View {
 
     @Override
     public OutcomeOdd selectOutcomeOdd(List<SportEvent> sportEvents) {
-        HashMap<Integer, OutcomeOdd> map = new HashMap<>();
+        HashMap<Integer, OutcomeOdd> map;
         Scanner reader = new Scanner(System.in);
         int key = 0;
         boolean isChoiceInvalid = true;
 
         while (isChoiceInvalid) {
             System.out.println("\nPlease choose an Outcome Odd.");
+            map = new HashMap<>();
 
             int index = 1;
             for (SportEvent sportEvent : sportEvents) {
