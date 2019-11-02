@@ -1,10 +1,27 @@
 package com.epam.training.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 @Configuration
 @ComponentScan(value = "com.epam.training")
 public class AppConfig {
 
+    @Bean
+    public ResourceBundle getMessagesBundle() {
+        String baseName = "MessagesBundle";
+
+        ResourceBundle toReturn = ResourceBundle.getBundle(baseName, Locale.getDefault());
+
+        if (toReturn != null) {
+            return toReturn;
+        } else {
+            return ResourceBundle.getBundle(baseName, Locale.US);
+        }
+
+    }
 }

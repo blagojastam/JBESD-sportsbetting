@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 @Slf4j
@@ -20,6 +21,13 @@ public class App {
 
     private SportsBettingService service;
     private View view;
+    private ResourceBundle messages;
+
+    @Autowired
+    public void setMessages(ResourceBundle messages) {
+        this.messages = messages;
+        log.info("Set locale to " + messages.getLocale().toString());
+    }
 
     @Autowired
     public App(SportsBettingService service, View view) {
