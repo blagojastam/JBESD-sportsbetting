@@ -3,6 +3,7 @@ package com.epam.training.view;
 import com.epam.training.domain.*;
 import com.epam.training.domain.Currency;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -16,26 +17,33 @@ import java.util.stream.Stream;
 @Component
 @SuppressWarnings("Duplicates")
 public class ViewImpl implements View {
+
+    private ResourceBundle messages;
+
+    @Autowired
+    public void setMessages(ResourceBundle messages) {
+        this.messages = messages;
+    }
+
     @Override
     public Player readPlayerData() {
         Scanner reader = new Scanner(System.in);
 
-        System.out.println("\nBefore we begin, can we please get your details? ");
-        System.out.print("Your name: ");
+        System.out.println("\n" + messages.getString("before_beginning"));
+        System.out.print(messages.getString("your_name"));
         String fullName = reader.nextLine();
 
-        System.out.println("\nWhat kind of currency would you like to deposit? (HUF, EUR, USD). " +
-                "Please, write in the 3 character currency code.");
+        System.out.print(messages.getString("currency_choice"));
         String currencyChoice = reader.next();
         Currency currency = Currency.valueOf(currencyChoice.toUpperCase());
 
         BigDecimal amount;
         boolean validAmountGiven = false;
         do {
-            System.out.print("\nWhat amount would you like to deposit to your bank account? ");
+            System.out.print(messages.getString("what_amount"));
             amount = new BigDecimal(reader.next());
             if (!(amount.compareTo(BigDecimal.ZERO) == 1)) {
-                System.out.print("Please give a value greater than 0. ");
+                System.out.print(messages.getString("value_gt0_needed"));
                 log.warn("User gave value less than or equal to 0. ");
             } else {
                 validAmountGiven = true;
@@ -45,8 +53,7 @@ public class ViewImpl implements View {
         LocalDateTime birthdate;
         boolean defaultBirthdate = true;
         if (!defaultBirthdate){
-            log.info("Using default birthdate. ");
-            System.out.print("\nYour birthdate: [DD-MM-YYYY] ");
+            System.out.print(messages.getString("your_birthdate"));
             String birthdateString = reader.next();
             String[] birthdateData = birthdateString.split("-");
             birthdate = LocalDateTime.of(
@@ -56,6 +63,7 @@ public class ViewImpl implements View {
                     13,
                     37);
         } else {
+            log.info("Using default birthdate. ");
             birthdate = LocalDateTime.now();
         }
 
@@ -76,8 +84,7 @@ public class ViewImpl implements View {
 
     @Override
     public void printWelcomeMessage() {
-        System.out.println("\nWelcome to the sports betting application. Our code might be spaghetti, but no worries," +
-                " we will still take your money!");
+        System.out.println(messages.getString("welcome_message"));
     }
 
     @Override
@@ -87,34 +94,34 @@ public class ViewImpl implements View {
         switch (player.getCurrency()) {
             case HUF:
                 currencySymbol = "HUF";
-                System.out.println("Account balance: " + player.getBalance() + currencySymbol);
+                System.out.println(messages.getString("acct_balance") + player.getBalance() + currencySymbol);
                 break;
             case EUR:
                 currencySymbol = "€";
-                System.out.println("Account balance: " + player.getBalance() + currencySymbol);
+                System.out.println(messages.getString("acct_balance")+ player.getBalance() + currencySymbol);
                 break;
             case USD:
                 currencySymbol = "$";
-                System.out.println("Account balance: " + currencySymbol + player.getBalance());
+                System.out.println(messages.getString("acct_balance") + currencySymbol + player.getBalance());
                 break;
             default:
                 currencySymbol = "HUF";
-                System.out.println("Account balance: " + player.getBalance() + currencySymbol);
+                System.out.println(messages.getString("acct_balance") + player.getBalance() + currencySymbol);
                 break;
         }
     }
 
     @Override
     public void printOutcomeOdds(List<SportEvent> sportEvents) {
-        System.out.println("\n----- Listing Outcome Odds -----");
+        System.out.println(messages.getString("outcomeOdd_listing_message"));
         for (SportEvent sportEvent : sportEvents) {
             for (Bet bet : sportEvent.getBets()) {
                 for (Outcome outcome: bet.getOutcomes()) {
                     for (OutcomeOdd outcomeOdd : outcome.getOutcomeOdds()) {
-                        System.out.println("Outcome odd rate: " + outcomeOdd.getValue());
-                        System.out.println("Outcome odd valid from: " + outcomeOdd.getValidFrom());
-                        System.out.println("Outcome odd valid until: " + outcomeOdd.getValidUntil());
-                        System.out.println("Outcome odd parent Outcome: " + outcomeOdd.getOutcome());
+                        System.out.println(messages.getString("outcomeOdd_rate") + outcomeOdd.getValue());
+                        System.out.println(messages.getString("outcomeOdd_validFrom") + outcomeOdd.getValidFrom());
+                        System.out.println(messages.getString("outcomeOdd_validUntil") + outcomeOdd.getValidUntil());
+                        System.out.println(messages.getString("outcomeOdd_parentOutcome") + outcomeOdd.getOutcome());
                         System.out.println();
                     }
                 }
@@ -130,7 +137,7 @@ public class ViewImpl implements View {
         boolean isChoiceInvalid = true;
 
         while (isChoiceInvalid) {
-            System.out.println("\nPlease choose an Outcome Odd.");
+            System.out.println(messages.getString("outcomeOdd_selectionPrompt"));
             map = new HashMap<>();
 
             int index = 1;
@@ -140,8 +147,8 @@ public class ViewImpl implements View {
                         for (OutcomeOdd outcomeOdd : outcome.getOutcomeOdds()) {
                             map.put(index, outcomeOdd);
                             System.out.println(index++ + ". " + outcomeOdd.getOutcome().getDescription() +
-                                    "\n   Odds: " + outcomeOdd.getValue() +
-                                    "\n   Valid between: " + outcomeOdd.getValidFrom() + " - " + outcomeOdd.getValidUntil());
+                                    "\n  " + messages.getString("odds") + outcomeOdd.getValue() +
+                                    "\n  " + messages.getString("valid_between") + outcomeOdd.getValidFrom() + " - " + outcomeOdd.getValidUntil());
                         }
                     }
                 }
@@ -151,7 +158,7 @@ public class ViewImpl implements View {
             if (map.containsKey(key)) {
                 isChoiceInvalid = false;
             } else {
-                System.out.println("Please select a valid Outcome Odd. ");
+                System.out.println(messages.getString("outcomeOdd_pleaseSelectValid"));
                 log.warn("User selected invalid Outcome Odd. ");
             }
         }
@@ -166,10 +173,10 @@ public class ViewImpl implements View {
         boolean validAmountGiven = false;
 
         do {
-            System.out.print("\nWhat amount would you like to wager? ");
+            System.out.print(messages.getString("wager_promptAmount"));
             amount = new BigDecimal(reader.next());
             if (!(amount.compareTo(BigDecimal.ZERO) == 1)) {
-                System.out.print("Please give a value greater than 0. ");
+                System.out.print(messages.getString("value_gt0_needed"));
                 log.warn("User gave value less than or equal to 0. ");
             } else {
                 validAmountGiven = true;
@@ -181,16 +188,16 @@ public class ViewImpl implements View {
 
     @Override
     public void printSavedWager(Wager wager) {
-        System.out.println("\n----- Wager details -----" +
-                "\nPlayer name: " + wager.getPlayer().getName() +
-                "\nWager amount: " + wager.getAmount() + wager.getCurrency() +
-                "\nWager odd: " + wager.getOdd().getValue() +
-                "\nWager description: " + wager.getOdd().getOutcome().getDescription());
+        System.out.println(messages.getString("wager_listing_message") +
+                "\n" + messages.getString("player_name") + wager.getPlayer().getName() +
+                "\n" + messages.getString("wager_amount") + wager.getAmount() + wager.getCurrency() +
+                "\n" + messages.getString("wager_odd") + wager.getOdd().getValue() +
+                "\n" + messages.getString("wager_description") + wager.getOdd().getOutcome().getDescription());
     }
 
     @Override
     public void printNotEnoughBalance(Player player) {
-        System.out.println("\nThere is not enough balance on the account");
+        System.out.println("\n" + messages.getString("not_enough_balance"));
         printBalance(player);
     }
 
@@ -200,9 +207,9 @@ public class ViewImpl implements View {
                 wager -> wager.getPlayer() == player)
                 .collect(Collectors.toList());
         for (Wager wager : playerWagers) {
-            System.out.println("Wager: " + wager.getOdd().getOutcome().getDescription() +
-                    "\nAmount: " + wager.getAmount() +
-                    "\nWon: " +wager.getWin());
+            System.out.println(messages.getString("wager") + wager.getOdd().getOutcome().getDescription() +
+                    "\n" + messages.getString("amount") + wager.getAmount() +
+                    "\n" + messages.getString("won") + wager.getWin());
         }
     }
 }
