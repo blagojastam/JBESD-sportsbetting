@@ -3,29 +3,36 @@ package com.epam.training;
 import com.epam.training.domain.*;
 import com.epam.training.service.*;
 import com.epam.training.view.*;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
+@Slf4j
+@Component
 @SuppressWarnings("Duplicates")
 public class App {
 
     private SportsBettingService service;
     private View view;
+    private ResourceBundle messages;
 
+    @Autowired
+    public void setMessages(ResourceBundle messages) {
+        this.messages = messages;
+        log.info("Set locale to " + messages.getLocale().toString());
+    }
+
+    @Autowired
     public App(SportsBettingService service, View view) {
         this.service = service;
         this.view = view;
-    }
-
-    public static void main(String[] args) {
-        App app = new App(new SportsBettingServiceImpl(), new ViewImpl());
-        app.initialize();
-        app.createPlayer();
-        app.play();
     }
 
     public void play() {
@@ -33,8 +40,8 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         String choice = "";
         while (!choice.equals("q")) {
-            System.out.println("1. Place a bet");
-            System.out.println("q. Calculate results and quit");
+            System.out.println("1. " + messages.getString("place_a_bet"));
+            System.out.println("q. " + messages.getString("calc_results_and_quit"));
             choice = scanner.next();
             if (choice.equals("1")) {
                 doBetting();
@@ -44,7 +51,7 @@ public class App {
             }
         }
 
-        System.out.println("Bye bye. ");
+        System.out.println(messages.getString("goodbye_message"));
     }
 
     void createPlayer() {
@@ -64,6 +71,7 @@ public class App {
             wagerAmount = view.readWagerAmount();
             if (playerBalance.compareTo(wagerAmount) == -1) {
                 view.printNotEnoughBalance(currentPlayer);
+                log.warn("Player tried to bet with more funds than in their account. ");
             } else {
                 validAmountGiven = true;
             }
