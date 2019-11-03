@@ -40,8 +40,8 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         String choice = "";
         while (!choice.equals("q")) {
-            System.out.println("1. Place a bet");
-            System.out.println("q. Calculate results and quit");
+            System.out.println("1. " + messages.getString("place_a_bet"));
+            System.out.println("q. " + messages.getString("calc_results_and_quit"));
             choice = scanner.next();
             if (choice.equals("1")) {
                 doBetting();
@@ -51,7 +51,7 @@ public class App {
             }
         }
 
-        System.out.println("Bye bye. ");
+        System.out.println(messages.getString("goodbye_message"));
     }
 
     void createPlayer() {
