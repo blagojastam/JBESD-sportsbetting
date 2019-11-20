@@ -1,15 +1,26 @@
 package com.epam.training.domain;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Entity
 public class Wager {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    protected Integer id;
     BigDecimal amount;
     LocalDateTime timestampCreated;
     Boolean processed;
     Boolean win;
+
+    @OneToOne
     Player player;
+
+    @Enumerated(value = EnumType.STRING)
     Currency currency;
+
+    @OneToOne
     OutcomeOdd odd;
 
     public Wager() {

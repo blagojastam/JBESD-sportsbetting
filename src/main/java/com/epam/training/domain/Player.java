@@ -1,14 +1,20 @@
 package com.epam.training.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
+@Entity
 public class Player extends User {
     String name;
     int accountNumber;
     BigDecimal balance;
     LocalDateTime birth;
+
+    @Enumerated(value = EnumType.STRING)
     Currency currency;
 
     private Player() {

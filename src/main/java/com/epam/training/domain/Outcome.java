@@ -1,10 +1,20 @@
 package com.epam.training.domain;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Outcome {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    protected Integer id;
+
     String description;
+
+    @ElementCollection
     List<OutcomeOdd> outcomeOdds;
+
+    @OneToOne
     Bet bet;
 
     private Outcome() {

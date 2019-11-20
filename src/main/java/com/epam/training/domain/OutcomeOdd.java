@@ -1,13 +1,23 @@
 package com.epam.training.domain;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Entity
 public class OutcomeOdd {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    protected Integer id;
+
     BigDecimal value;
     LocalDateTime validFrom;
     LocalDateTime validUntil;
+
+    @OneToOne
     Wager wager;
+
+    @OneToOne
     Outcome outcome;
 
     private OutcomeOdd() {

@@ -1,7 +1,11 @@
 package com.epam.training.service;
 
 import com.epam.training.domain.*;
+import com.epam.training.repository.PlayerRepository;
+import com.epam.training.repository.SportEventRepository;
+import com.epam.training.repository.WagerRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -12,12 +16,20 @@ import java.util.List;
 @Component
 public class SportsBettingServiceImpl implements SportsBettingService {
     Player currentPlayer;
-    List<SportEvent> sportEvents = new LinkedList<>();
-    List<Wager> wagers = new LinkedList<>();
+
+    @Autowired
+    PlayerRepository playerRepository;
+
+    @Autowired
+    SportEventRepository sportEventRepository;
+
+    @Autowired
+    WagerRepository wagerRepository;
 
     @Override
     public void savePlayer(Player player) {
         this.currentPlayer = player;
+        playerRepository.save(player);
         log.info("Player " + player + " saved.");
     }
 
@@ -28,24 +40,25 @@ public class SportsBettingServiceImpl implements SportsBettingService {
 
     @Override
     public List<SportEvent> findAllSportEvents() {
-        return sportEvents;
+        return sportEventRepository.findAll();
     }
 
     @Override
     public void saveWager(Wager wager) {
-        wagers.add(wager);
+
+        wagerRepository.save(wager);
         log.info("Wager " + wager + " saved.");
     }
 
     @Override
     public List<Wager> findAllWagers() {
-        return wagers;
+        return wagerRepository.findAll();
     }
 
     @Override
     public void calculateResults() {
 
-        for (Wager wager : wagers) {
+        for (Wager wager : findAllWagers()) {
             List<Outcome> winnerOutcomes = wager.getOdd().getOutcome().getBet().getEvent().getResult().getWinnerOutcomes();
             Outcome wageredOutcome = wager.getOdd().getOutcome();
             if (winnerOutcomes.contains(wageredOutcome)) {
@@ -57,9 +70,11 @@ public class SportsBettingServiceImpl implements SportsBettingService {
                 BigDecimal winnings = wagerAmount.multiply(coefficient);
                 BigDecimal newPlayerBalance = oldPlayerBalance.add(winnings);
                 currentPlayer.setBalance(newPlayerBalance);
+                playerRepository.save(currentPlayer);
                 wager.setWin(true);
             }
             wager.setProcessed(true);
+            wagerRepository.save(wager);
             log.info("Wager " + wager + " processed.");
         }
     }

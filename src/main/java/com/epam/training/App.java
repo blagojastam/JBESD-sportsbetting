@@ -1,6 +1,7 @@
 package com.epam.training;
 
 import com.epam.training.domain.*;
+import com.epam.training.repository.*;
 import com.epam.training.service.*;
 import com.epam.training.view.*;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,21 @@ public class App {
     private SportsBettingService service;
     private View view;
     private ResourceBundle messages;
+
+    @Autowired
+    ResultRepository resultRepository;
+
+    @Autowired
+    SportEventRepository sportEventRepository;
+
+    @Autowired
+    BetRepository betRepository;
+
+    @Autowired
+    OutcomeRepository outcomeRepository;
+
+    @Autowired
+    OutcomeOddRepository outcomeOddRepository;
 
     @Autowired
     public void setMessages(ResourceBundle messages) {
@@ -96,16 +112,12 @@ public class App {
         service.calculateResults();
     }
 
-    void printResults () {
+    void printResults() {
         view.printResults(service.findPlayer(), service.findAllWagers());
     }
 
     // Helper method to set up dummy data.
-     void initialize() {
-
-        // Simulate JPA linker tables
-        Result result1 = new Result();
-        Result result2 = new Result();
+    void initialize() {
         List<Bet> bets1 = new LinkedList<>();
         List<Bet> bets2 = new LinkedList<>();
         List<OutcomeOdd> outcomeodds1 = new LinkedList<>();
@@ -117,6 +129,11 @@ public class App {
         List<Outcome> outcomes3 = new LinkedList<>();
         List<Outcome> outcomes4 = new LinkedList<>();
 
+        Result result1 = new Result();
+        resultRepository.save(result1);
+
+        Result result2 = new Result();
+        resultRepository.save(result2);
 
         SportEvent sportEvent1 = new SportEvent.Builder("Rafa Nadal vs. Roger Federer")
                 .withStartDate(LocalDateTime.now()
@@ -127,6 +144,7 @@ public class App {
                 .withBets(bets1)
                 .withResult(result1)
                 .buildTennisEvent();
+        sportEventRepository.save(sportEvent1);
 
         SportEvent sportEvent2 = new SportEvent.Builder("Real Madrid vs. Barcelona")
                 .withStartDate(LocalDateTime.now()
@@ -136,95 +154,100 @@ public class App {
                 .withBets(bets2)
                 .withResult(result2)
                 .buildFootballEvent();
+        sportEventRepository.save(sportEvent2);
+
 
         Bet bet1 = new Bet.Builder("Roger Federer wins.")
                 .withType(BetType.WINNER)
                 .withSportEvent(sportEvent1)
                 .withOutcomes(outcomes1)
                 .build();
+        betRepository.save(bet1);
 
         Bet bet2 = new Bet.Builder("Match is played in 3 sets.")
                 .withType(BetType.NUMBER_OF_SETS)
                 .withSportEvent(sportEvent1)
                 .withOutcomes(outcomes2)
                 .build();
+        betRepository.save(bet2);
 
         Bet bet3 = new Bet.Builder("Real Madrid wins.")
                 .withType(BetType.WINNER)
                 .withSportEvent(sportEvent2)
                 .withOutcomes(outcomes3)
                 .build();
+        betRepository.save(bet3);
 
         Bet bet4 = new Bet.Builder("Barcelona wins.")
                 .withType(BetType.WINNER)
                 .withSportEvent(sportEvent2)
                 .withOutcomes(outcomes4)
                 .build();
-
+        betRepository.save(bet4);
 
         Outcome outcome1 = new Outcome.Builder("Roger Federer wins.")
                 .withBet(bet1)
                 .withOutcomeOdds(outcomeodds1)
                 .build();
+        outcomeRepository.save(outcome1);
+
 
         Outcome outcome2 = new Outcome.Builder("Match is played in 3 sets.")
                 .withBet(bet2)
                 .withOutcomeOdds(outcomeodds2)
                 .build();
+        outcomeRepository.save(outcome2);
+
 
         Outcome outcome3 = new Outcome.Builder("Real Madrid wins.")
                 .withBet(bet3)
                 .withOutcomeOdds(outcomeodds3)
                 .build();
+        outcomeRepository.save(outcome3);
+
 
         Outcome outcome4 = new Outcome.Builder("Barcelona wins.")
                 .withBet(bet4)
                 .withOutcomeOdds(outcomeodds4)
                 .build();
+        outcomeRepository.save(outcome4);
+
 
         OutcomeOdd outcomeOdd1 = new OutcomeOdd.Builder(new BigDecimal("1.3"))
                 .withOutcome(outcome1)
                 .validFrom(LocalDateTime.now().minusDays(2))
                 .validUntil(LocalDateTime.now().plusDays(1))
                 .build();
+        outcomeOddRepository.save(outcomeOdd1);
 
         OutcomeOdd outcomeOdd2 = new OutcomeOdd.Builder(new BigDecimal("1.1"))
                 .withOutcome(outcome2)
                 .validFrom(LocalDateTime.now().minusDays(2))
                 .validUntil(LocalDateTime.now().plusDays(1))
                 .build();
+        outcomeOddRepository.save(outcomeOdd2);
 
         OutcomeOdd outcomeOdd3 = new OutcomeOdd.Builder(new BigDecimal("1.125"))
                 .withOutcome(outcome3)
                 .validFrom(LocalDateTime.now().minusDays(2))
                 .validUntil(LocalDateTime.now().plusDays(1))
                 .build();
+        outcomeOddRepository.save(outcomeOdd3);
 
         OutcomeOdd outcomeOdd4 = new OutcomeOdd.Builder(new BigDecimal("1.1337"))
                 .withOutcome(outcome4)
                 .validFrom(LocalDateTime.now().minusDays(2))
                 .validUntil(LocalDateTime.now().plusDays(1))
                 .build();
-
-        bets1.add(bet1);
-        bets1.add(bet2);
-        bets2.add(bet3);
-        bets2.add(bet4);
-
-        outcomeodds1.add(outcomeOdd1);
-        outcomeodds2.add(outcomeOdd2);
-        outcomeodds3.add(outcomeOdd3);
-        outcomeodds4.add(outcomeOdd4);
-
-        outcomes1.add(outcome1);
-        outcomes2.add(outcome2);
-        outcomes3.add(outcome3);
-        outcomes4.add(outcome4);
+        outcomeOddRepository.save(outcomeOdd4);
 
         result1.setWinnerOutcomes(outcomes1);
         result2.setWinnerOutcomes(outcomes3);
 
-        service.findAllSportEvents().add(sportEvent1);
-        service.findAllSportEvents().add(sportEvent2);
+        resultRepository.save(result1);
+        resultRepository.save(result2);
+
+        sportEventRepository.save(sportEvent1);
+        sportEventRepository.save(sportEvent2);
     }
 }

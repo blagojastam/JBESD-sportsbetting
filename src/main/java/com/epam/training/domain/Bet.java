@@ -1,11 +1,23 @@
 package com.epam.training.domain;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Bet {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    protected Integer id;
+
     private String description;
+
+    @Enumerated(value = EnumType.STRING)
     private BetType type;
+
+    @OneToOne
     private SportEvent event;
+
+    @ElementCollection
     private List<Outcome> outcomes;
 
     private Bet() {

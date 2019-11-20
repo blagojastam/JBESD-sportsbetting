@@ -1,13 +1,24 @@
 package com.epam.training.domain;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class SportEvent {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    protected Integer id;
+
     protected String title;
     protected LocalDateTime startDate;
     protected LocalDateTime endDate;
+
+    @OneToOne
     protected Result result;
+
+    @ElementCollection
     protected List<Bet> bets;
 
     public String getTitle() {
