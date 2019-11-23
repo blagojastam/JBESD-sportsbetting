@@ -6,24 +6,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Slf4j
 @Component
 @SuppressWarnings("Duplicates")
 public class ViewImpl implements View {
-
-    private ResourceBundle messages;
-
     @Autowired
-    public void setMessages(ResourceBundle messages) {
-        this.messages = messages;
-    }
+    private ResourceBundle messages;
 
     @Override
     public Player readPlayerData() {
@@ -112,6 +107,7 @@ public class ViewImpl implements View {
     }
 
     @Override
+    @Transactional
     public void printOutcomeOdds(List<SportEvent> sportEvents) {
         System.out.println(messages.getString("outcomeOdd_listing_message"));
         for (SportEvent sportEvent : sportEvents) {
@@ -130,6 +126,7 @@ public class ViewImpl implements View {
     }
 
     @Override
+    @Transactional
     public OutcomeOdd selectOutcomeOdd(List<SportEvent> sportEvents) {
         HashMap<Integer, OutcomeOdd> map = new HashMap<>();
         Scanner reader = new Scanner(System.in);

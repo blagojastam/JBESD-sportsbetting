@@ -6,14 +6,16 @@ import com.epam.training.repository.SportEventRepository;
 import com.epam.training.repository.WagerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
-import java.util.LinkedList;
 import java.util.List;
 
 @Slf4j
-@Component
+@Service
 public class SportsBettingServiceImpl implements SportsBettingService {
     Player currentPlayer;
 
@@ -58,24 +60,24 @@ public class SportsBettingServiceImpl implements SportsBettingService {
     @Override
     public void calculateResults() {
 
-        for (Wager wager : findAllWagers()) {
-            List<Outcome> winnerOutcomes = wager.getOdd().getOutcome().getBet().getEvent().getResult().getWinnerOutcomes();
-            Outcome wageredOutcome = wager.getOdd().getOutcome();
-            if (winnerOutcomes.contains(wageredOutcome)) {
-                BigDecimal oldPlayerBalance = currentPlayer.getBalance();
-                List<OutcomeOdd> outcomeOdds = wageredOutcome.getOutcomeOdds();
-                OutcomeOdd last = outcomeOdds.get(outcomeOdds.size()-1); // only the most recent outcome is considered
-                BigDecimal coefficient = last.getValue();
-                BigDecimal wagerAmount = last.getWager().getAmount();
-                BigDecimal winnings = wagerAmount.multiply(coefficient);
-                BigDecimal newPlayerBalance = oldPlayerBalance.add(winnings);
-                currentPlayer.setBalance(newPlayerBalance);
-                playerRepository.save(currentPlayer);
-                wager.setWin(true);
-            }
-            wager.setProcessed(true);
-            wagerRepository.save(wager);
-            log.info("Wager " + wager + " processed.");
-        }
+//        for (Wager wager : findAllWagers()) {
+//            List<Outcome> winnerOutcomes = wager.getOdd().getOutcome().getBet();
+//            Outcome wageredOutcome = wager.getOdd().getOutcome();
+//            if (winnerOutcomes.contains(wageredOutcome)) {
+//                BigDecimal oldPlayerBalance = currentPlayer.getBalance();
+//                List<OutcomeOdd> outcomeOdds = wageredOutcome.getOutcomeOdds();
+//                OutcomeOdd last = outcomeOdds.get(outcomeOdds.size()-1); // only the most recent outcome is considered
+//                BigDecimal coefficient = last.getValue();
+//                BigDecimal wagerAmount = last.getWager().getAmount();
+//                BigDecimal winnings = wagerAmount.multiply(coefficient);
+//                BigDecimal newPlayerBalance = oldPlayerBalance.add(winnings);
+//                currentPlayer.setBalance(newPlayerBalance);
+//                playerRepository.save(currentPlayer);
+//                wager.setWin(true);
+//            }
+//            wager.setProcessed(true);
+//            wagerRepository.save(wager);
+//            log.info("Wager " + wager + " processed.");
+//        }
     }
 }

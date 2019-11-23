@@ -159,28 +159,24 @@ public class App {
 
         Bet bet1 = new Bet.Builder("Roger Federer wins.")
                 .withType(BetType.WINNER)
-                .withSportEvent(sportEvent1)
                 .withOutcomes(outcomes1)
                 .build();
         betRepository.save(bet1);
 
         Bet bet2 = new Bet.Builder("Match is played in 3 sets.")
                 .withType(BetType.NUMBER_OF_SETS)
-                .withSportEvent(sportEvent1)
                 .withOutcomes(outcomes2)
                 .build();
         betRepository.save(bet2);
 
         Bet bet3 = new Bet.Builder("Real Madrid wins.")
                 .withType(BetType.WINNER)
-                .withSportEvent(sportEvent2)
                 .withOutcomes(outcomes3)
                 .build();
         betRepository.save(bet3);
 
         Bet bet4 = new Bet.Builder("Barcelona wins.")
                 .withType(BetType.WINNER)
-                .withSportEvent(sportEvent2)
                 .withOutcomes(outcomes4)
                 .build();
         betRepository.save(bet4);

@@ -14,9 +14,6 @@ public class Bet {
     @Enumerated(value = EnumType.STRING)
     private BetType type;
 
-    @OneToOne
-    private SportEvent event;
-
     @ElementCollection
     private List<Outcome> outcomes;
 
@@ -38,14 +35,6 @@ public class Bet {
 
     public void setType(BetType type) {
         this.type = type;
-    }
-
-    public SportEvent getEvent() {
-        return event;
-    }
-
-    public void setEvent(SportEvent event) {
-        this.event = event;
     }
 
     public List<Outcome> getOutcomes() {
@@ -72,12 +61,6 @@ public class Bet {
             return this;
         }
 
-        public Builder withSportEvent(SportEvent event) {
-            this.event = event;
-
-            return this;
-        }
-
         public Builder withOutcomes(List<Outcome> outcomes) {
             this.outcomes = outcomes;
 
@@ -89,7 +72,6 @@ public class Bet {
 
             bet.description = this.description;
             bet.type = this.type;
-            bet.event = this.event;
             bet.outcomes = this.outcomes;
 
             return bet;
