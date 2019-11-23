@@ -94,7 +94,6 @@ public class App {
         } while (!validAmountGiven);
 
         Wager newWager = new Wager();
-        selectedOutcomeOdd.setWager(newWager);
         newWager.setAmount(wagerAmount);
         newWager.setCurrency(currentPlayer.getCurrency());
         newWager.setOdd(selectedOutcomeOdd);
@@ -144,7 +143,7 @@ public class App {
                 .withBets(bets1)
                 .withResult(result1)
                 .buildTennisEvent();
-        sportEventRepository.save(sportEvent1);
+
 
         SportEvent sportEvent2 = new SportEvent.Builder("Real Madrid vs. Barcelona")
                 .withStartDate(LocalDateTime.now()
@@ -154,60 +153,68 @@ public class App {
                 .withBets(bets2)
                 .withResult(result2)
                 .buildFootballEvent();
+        sportEventRepository.save(sportEvent1);
         sportEventRepository.save(sportEvent2);
-
 
         Bet bet1 = new Bet.Builder("Roger Federer wins.")
                 .withType(BetType.WINNER)
                 .withOutcomes(outcomes1)
+                .withEvent(sportEvent1)
                 .build();
         betRepository.save(bet1);
+        bets1.add(bet1);
 
         Bet bet2 = new Bet.Builder("Match is played in 3 sets.")
                 .withType(BetType.NUMBER_OF_SETS)
                 .withOutcomes(outcomes2)
+                .withEvent(sportEvent1)
                 .build();
         betRepository.save(bet2);
+        bets1.add(bet2);
 
         Bet bet3 = new Bet.Builder("Real Madrid wins.")
                 .withType(BetType.WINNER)
                 .withOutcomes(outcomes3)
+                .withEvent(sportEvent2)
                 .build();
         betRepository.save(bet3);
+        bets2.add(bet3);
 
         Bet bet4 = new Bet.Builder("Barcelona wins.")
                 .withType(BetType.WINNER)
                 .withOutcomes(outcomes4)
+                .withEvent(sportEvent2)
                 .build();
         betRepository.save(bet4);
+        bets2.add(bet4);
 
         Outcome outcome1 = new Outcome.Builder("Roger Federer wins.")
                 .withBet(bet1)
                 .withOutcomeOdds(outcomeodds1)
                 .build();
         outcomeRepository.save(outcome1);
-
+        outcomes1.add(outcome1);
 
         Outcome outcome2 = new Outcome.Builder("Match is played in 3 sets.")
                 .withBet(bet2)
                 .withOutcomeOdds(outcomeodds2)
                 .build();
         outcomeRepository.save(outcome2);
-
+        outcomes2.add(outcome2);
 
         Outcome outcome3 = new Outcome.Builder("Real Madrid wins.")
                 .withBet(bet3)
                 .withOutcomeOdds(outcomeodds3)
                 .build();
         outcomeRepository.save(outcome3);
-
+        outcomes3.add(outcome3);
 
         Outcome outcome4 = new Outcome.Builder("Barcelona wins.")
                 .withBet(bet4)
                 .withOutcomeOdds(outcomeodds4)
                 .build();
         outcomeRepository.save(outcome4);
-
+        outcomes4.add(outcome4);
 
         OutcomeOdd outcomeOdd1 = new OutcomeOdd.Builder(new BigDecimal("1.3"))
                 .withOutcome(outcome1)
@@ -215,6 +222,8 @@ public class App {
                 .validUntil(LocalDateTime.now().plusDays(1))
                 .build();
         outcomeOddRepository.save(outcomeOdd1);
+        outcomeodds1.add(outcomeOdd1);
+
 
         OutcomeOdd outcomeOdd2 = new OutcomeOdd.Builder(new BigDecimal("1.1"))
                 .withOutcome(outcome2)
@@ -222,6 +231,7 @@ public class App {
                 .validUntil(LocalDateTime.now().plusDays(1))
                 .build();
         outcomeOddRepository.save(outcomeOdd2);
+        outcomeodds2.add(outcomeOdd2);
 
         OutcomeOdd outcomeOdd3 = new OutcomeOdd.Builder(new BigDecimal("1.125"))
                 .withOutcome(outcome3)
@@ -229,6 +239,8 @@ public class App {
                 .validUntil(LocalDateTime.now().plusDays(1))
                 .build();
         outcomeOddRepository.save(outcomeOdd3);
+        outcomeodds3.add(outcomeOdd3);
+
 
         OutcomeOdd outcomeOdd4 = new OutcomeOdd.Builder(new BigDecimal("1.1337"))
                 .withOutcome(outcome4)
@@ -236,6 +248,7 @@ public class App {
                 .validUntil(LocalDateTime.now().plusDays(1))
                 .build();
         outcomeOddRepository.save(outcomeOdd4);
+        outcomeodds4.add(outcomeOdd4);
 
         result1.setWinnerOutcomes(outcomes1);
         result2.setWinnerOutcomes(outcomes3);

@@ -11,13 +11,14 @@ public class Outcome {
 
     private String description;
 
-    @OneToMany
+    @OneToMany(mappedBy = "outcome", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OutcomeOdd> outcomeOdds;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bet_id")
     private Bet bet;
 
-    private Outcome() {
+    public Outcome() {
 
     }
 

@@ -18,7 +18,7 @@ public abstract class SportEvent {
     @OneToOne
     protected Result result;
 
-    @ElementCollection
+    @OneToMany(mappedBy = "event", cascade = CascadeType.MERGE, orphanRemoval = true)
     protected List<Bet> bets;
 
     public String getTitle() {

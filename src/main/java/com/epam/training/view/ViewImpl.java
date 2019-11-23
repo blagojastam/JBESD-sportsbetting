@@ -2,7 +2,9 @@ package com.epam.training.view;
 
 import com.epam.training.domain.*;
 import com.epam.training.domain.Currency;
+import com.epam.training.repository.BetRepository;
 import lombok.extern.slf4j.Slf4j;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +21,9 @@ import java.util.stream.Collectors;
 public class ViewImpl implements View {
     @Autowired
     private ResourceBundle messages;
+
+    @Autowired
+    private BetRepository betRepository;
 
     @Override
     public Player readPlayerData() {
@@ -111,7 +116,7 @@ public class ViewImpl implements View {
     public void printOutcomeOdds(List<SportEvent> sportEvents) {
         System.out.println(messages.getString("outcomeOdd_listing_message"));
         for (SportEvent sportEvent : sportEvents) {
-            for (Bet bet : sportEvent.getBets()) {
+            for (Bet bet : betRepository.findAllByEvent(sportEvent)) {
                 for (Outcome outcome: bet.getOutcomes()) {
                     for (OutcomeOdd outcomeOdd : outcome.getOutcomeOdds()) {
                         System.out.println(messages.getString("outcomeOdd_rate") + outcomeOdd.getValue());
@@ -139,7 +144,9 @@ public class ViewImpl implements View {
 
             int index = 1;
             for (SportEvent sportEvent : sportEvents) {
-                for (Bet bet : sportEvent.getBets()) {
+                var bets = betRepository.findAllByEvent(sportEvent);
+
+                for (Bet bet : bets) {
                     for (Outcome outcome: bet.getOutcomes()) {
                         for (OutcomeOdd outcomeOdd : outcome.getOutcomeOdds()) {
                             map.put(index, outcomeOdd);

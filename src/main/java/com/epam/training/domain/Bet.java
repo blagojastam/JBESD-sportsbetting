@@ -14,13 +14,14 @@ public class Bet {
     @Enumerated(value = EnumType.STRING)
     private BetType type;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "bet", cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<Outcome> outcomes;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "event")
     private SportEvent event;
 
-    private Bet() {
+    public Bet() {
 
     }
 

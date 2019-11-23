@@ -17,7 +17,8 @@ public class OutcomeOdd {
     @OneToOne
     private Wager wager;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "outcome_id")
     private Outcome outcome;
 
     private OutcomeOdd() {
@@ -68,7 +69,6 @@ public class OutcomeOdd {
         private BigDecimal value;
         private LocalDateTime validFrom;
         private LocalDateTime validUntil;
-        private Wager wager;
         private Outcome outcome;
 
         public Builder(BigDecimal value) {
@@ -87,12 +87,6 @@ public class OutcomeOdd {
             return this;
         }
 
-        public Builder withWager(Wager wager) {
-            this.wager = wager;
-
-            return this;
-        }
-
         public Builder withOutcome(Outcome outcome) {
             this.outcome = outcome;
 
@@ -105,7 +99,6 @@ public class OutcomeOdd {
             outcomeOdd.value = this.value;
             outcomeOdd.validFrom = this.validFrom;
             outcomeOdd.validUntil = this.validUntil;
-            outcomeOdd.wager = this.wager;
             outcomeOdd.outcome = this.outcome;
 
             return outcomeOdd;

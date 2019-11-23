@@ -9,7 +9,7 @@ public class Result {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @ElementCollection
+    @OneToMany(mappedBy = "bet", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Outcome> winnerOutcomes;
 
     public List<Outcome> getWinnerOutcomes() {
