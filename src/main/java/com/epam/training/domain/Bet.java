@@ -14,8 +14,11 @@ public class Bet {
     @Enumerated(value = EnumType.STRING)
     private BetType type;
 
-    @ElementCollection
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Outcome> outcomes;
+
+    @OneToOne
+    private SportEvent event;
 
     private Bet() {
 
@@ -45,6 +48,14 @@ public class Bet {
         this.outcomes = outcomes;
     }
 
+    public SportEvent getEvent() {
+        return event;
+    }
+
+    public void setEvent(SportEvent event) {
+        this.event = event;
+    }
+
     public static class Builder {
         private String description;
         private BetType type;
@@ -67,9 +78,16 @@ public class Bet {
             return this;
         }
 
+        public Builder withEvent(SportEvent event){
+            this.event = event;
+
+            return this;
+        }
+
         public Bet build() {
             Bet bet = new Bet();
 
+            bet.event = this.event;
             bet.description = this.description;
             bet.type = this.type;
             bet.outcomes = this.outcomes;

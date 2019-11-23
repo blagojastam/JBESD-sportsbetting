@@ -8,20 +8,21 @@ import java.time.LocalDateTime;
 public class Wager {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    protected Integer id;
-    BigDecimal amount;
-    LocalDateTime timestampCreated;
-    Boolean processed;
-    Boolean win;
+    private Integer id;
+
+    private BigDecimal amount;
+    private LocalDateTime timestampCreated;
+    private Boolean processed;
+    private Boolean win;
 
     @OneToOne
-    Player player;
+    private Player player;
 
     @Enumerated(value = EnumType.STRING)
-    Currency currency;
+    private Currency currency;
 
     @OneToOne
-    OutcomeOdd odd;
+    private OutcomeOdd odd;
 
     public Wager() {
         timestampCreated = LocalDateTime.now();

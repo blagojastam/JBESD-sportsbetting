@@ -7,10 +7,10 @@ import java.util.List;
 public class Result {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    protected Integer id;
+    private Integer id;
 
     @ElementCollection
-    List<Outcome> winnerOutcomes;
+    private List<Outcome> winnerOutcomes;
 
     public List<Outcome> getWinnerOutcomes() {
         return winnerOutcomes;

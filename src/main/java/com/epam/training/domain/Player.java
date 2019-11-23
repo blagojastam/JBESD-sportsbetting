@@ -9,13 +9,13 @@ import java.util.Arrays;
 
 @Entity
 public class Player extends User {
-    String name;
-    int accountNumber;
-    BigDecimal balance;
-    LocalDateTime birth;
+    private String name;
+    private int accountNumber;
+    private BigDecimal balance;
+    private LocalDateTime birth;
 
     @Enumerated(value = EnumType.STRING)
-    Currency currency;
+    private Currency currency;
 
     private Player() {
 
@@ -62,11 +62,11 @@ public class Player extends User {
     }
 
     public static class Builder {
-        String name;
-        int accountNumber;
-        BigDecimal balance;
-        LocalDateTime birth;
-        Currency currency;
+        private String name;
+        private int accountNumber;
+        private BigDecimal balance;
+        private LocalDateTime birth;
+        private Currency currency;
 
         public Builder(String name) {
             this.name = name;

@@ -7,15 +7,15 @@ import java.util.List;
 public class Outcome {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    protected Integer id;
+    private Integer id;
 
-    String description;
+    private String description;
 
-    @ElementCollection
-    List<OutcomeOdd> outcomeOdds;
+    @OneToMany
+    private List<OutcomeOdd> outcomeOdds;
 
     @OneToOne
-    Bet bet;
+    private Bet bet;
 
     private Outcome() {
 
@@ -46,9 +46,9 @@ public class Outcome {
     }
 
     public static class Builder {
-        String description;
-        List<OutcomeOdd> outcomeOdds;
-        Bet bet;
+        private String description;
+        private List<OutcomeOdd> outcomeOdds;
+        private Bet bet;
 
         public Builder(String description) {
             this.description = description;

@@ -8,17 +8,17 @@ import java.time.LocalDateTime;
 public class OutcomeOdd {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    protected Integer id;
+    private Integer id;
 
-    BigDecimal value;
-    LocalDateTime validFrom;
-    LocalDateTime validUntil;
-
-    @OneToOne
-    Wager wager;
+    private BigDecimal value;
+    private LocalDateTime validFrom;
+    private LocalDateTime validUntil;
 
     @OneToOne
-    Outcome outcome;
+    private Wager wager;
+
+    @ManyToOne
+    private Outcome outcome;
 
     private OutcomeOdd() {
 
@@ -65,11 +65,11 @@ public class OutcomeOdd {
     }
 
     public static class Builder {
-        BigDecimal value;
-        LocalDateTime validFrom;
-        LocalDateTime validUntil;
-        Wager wager;
-        Outcome outcome;
+        private BigDecimal value;
+        private LocalDateTime validFrom;
+        private LocalDateTime validUntil;
+        private Wager wager;
+        private Outcome outcome;
 
         public Builder(BigDecimal value) {
             this.value = value;
