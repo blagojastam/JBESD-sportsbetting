@@ -18,7 +18,5 @@
 
     <!-- Configuration defining views files -->
 
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-
-    </bean>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"/>
 </beans>
