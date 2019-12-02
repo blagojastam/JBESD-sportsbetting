@@ -1,33 +1,34 @@
 package com.epam.training.domain;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
 import java.util.Collection;
 
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@MappedSuperclass
+@Setter
+@Getter
 public abstract class User extends DomainEntity implements UserDetails {
 
     @Column(unique = true)
-    String username;
+    protected String username;
 
     @Column(unique = true)
-    String email;
+    protected String email;
 
-    String password;
+    protected String password;
 
-    boolean expired;
+    protected boolean expired;
 
-    boolean credentialsExpired;
+    protected boolean credentialsExpired;
 
-    boolean enabled;
+    protected boolean enabled;
 
-    boolean locked;
+    protected boolean locked;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -62,5 +63,9 @@ public abstract class User extends DomainEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

@@ -1,15 +1,15 @@
 package com.epam.training.domain;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Entity
+@MappedSuperclass
 public abstract class DomainEntity {
 
     @Id
-    UUID ID = UUID.randomUUID();
+    String ID = UUID.randomUUID().toString();
 
     LocalDateTime createdAt = LocalDateTime.now();
 }
