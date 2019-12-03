@@ -1,8 +1,7 @@
 package com.epam.training.domain;
 
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.Entity;
 
-@Inheritance(strategy = InheritanceType.JOINED)
+@Entity
 public class TennisSportEvent extends SportEvent {
 }

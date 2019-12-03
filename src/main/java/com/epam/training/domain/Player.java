@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import java.time.LocalDateTime;
 
 @Entity
-@NoArgsConstructor
 @Getter
 @Setter
 public class Player extends User {

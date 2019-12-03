@@ -26,6 +26,7 @@ public class PlayerService extends CrudServiceImpl<Player, String> implements Us
 
     public void saveNew(Player entity) {
         entity.setPassword(passwordEncoder.encode(entity.getPassword()));
+        entity.setEnabled(true);
         save(entity);
     }
 

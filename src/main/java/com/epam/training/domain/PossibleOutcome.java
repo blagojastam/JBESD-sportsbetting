@@ -11,20 +11,18 @@ import javax.persistence.OneToOne;
 @Entity
 @Getter
 @Setter
-public class Bet extends DomainEntity {
+public class PossibleOutcome extends DomainEntity {
 
     @OneToOne
-    Player player;
-
-    @OneToOne
-    PossibleOutcome possibleOutcome;
+    SportEvent sportEvent;
 
     @Enumerated(EnumType.STRING)
-    Currency currency;
+    OutcomeType outcomeType;
 
-    double amount;
+    String winner;
+    int numberOfGoals;
+    String playerScored;
+    int setsPlayed;
 
-    boolean processed;
-
-    boolean won;
+    double ratio;
 }

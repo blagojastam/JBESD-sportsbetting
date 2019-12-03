@@ -14,6 +14,6 @@ public class AppSpring {
         ConfigurableApplicationContext context = SpringApplication.run(AppSpring.class, args);
 
         Initializer init = context.getBean(Initializer.class);
-        init.initPlayer();
+        init.setUp();
     }
 }
