@@ -19,10 +19,7 @@ public class PossibleOutcome extends DomainEntity {
     @Enumerated(EnumType.STRING)
     OutcomeType outcomeType;
 
-    String winner;
-    int numberOfGoals;
-    String playerScored;
-    int setsPlayed;
+    String winningCondition;
 
     double ratio;
 }

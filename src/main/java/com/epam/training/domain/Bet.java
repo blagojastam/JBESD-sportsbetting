@@ -27,4 +27,7 @@ public class Bet extends DomainEntity {
     boolean processed;
 
     boolean won;
+
+    Integer number = sequence++;
+    static Integer sequence = 1;
 }

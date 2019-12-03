@@ -3,6 +3,7 @@ package com.epam.training.domain;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -20,4 +21,7 @@ public abstract class SportEvent extends DomainEntity {
     LocalDateTime startDate;
 
     LocalDateTime endDate;
+
+    @Column(name = "dtype", insertable = false, updatable = false)
+    String type;
 }

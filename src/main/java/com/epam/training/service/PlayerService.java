@@ -30,5 +30,4 @@ public class PlayerService extends CrudServiceImpl<Player, String> implements Us
         save(entity);
     }
 
-
 }

@@ -18,4 +18,12 @@ public class BettingAccountService extends CrudServiceImpl<BettingAccount, Strin
     public List<BettingAccount> findAllForPlayer(Player player) {
         return bettingAccountRepository.findAllByOwner(player);
     }
+
+    public void DepositToAccount(double amount, BettingAccount bettingAccount) {
+        double balance = bettingAccount.getBalance();
+        balance += amount;
+        bettingAccount.setBalance(balance);
+
+        bettingAccountRepository.save(bettingAccount);
+    }
 }
