@@ -3,36 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<div class="header center-block">
-    <header>
-        <h1>Welcome to SportsBetting!</h1>
-        <h5>Sports betting is the activity of predicting sports results and placing bets on the outcome</h5>
+<div>
+    <header class="loginpage-header">
+        <h1 class="display-1">Welcome to SportsBetting!</h1>
+        <h5 class="display-1">Sports betting is the activity of predicting sports results and placing bets on the outcome</h5>
     </header>
 </div>
 
-<div class="login center-block">
-    <form name="f" th:action="@{/login}" method="post">
-        <fieldset>
-            <legend>Please Login</legend>
-            <div th:if="${param.error}" class="alert alert-error">
-                Invalid username and password.
-            </div>
-            <div th:if="${param.logout}" class="alert alert-success">
-                You have been logged out.
-            </div>
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username"/>
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password"/>
-            <div class="form-actions">
-                <button type="submit">Log in</button>
-            </div>
-            <label for="password">Register <a href="/register">here</a></label>
-        </fieldset>
-    </form>
-</div>
+<form name="f" th:action="@{/login}" method="post" >
+    <fieldset>
+        <legend>Please Login</legend>
+        <div th:if="${param.error}" class="alert alert-error">
+            Invalid username and password.
+        </div>
+        <div th:if="${param.logout}" class="alert alert-success">
+            You have been logged out.
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="text" id="username" name="username" placeholder="Username"/>
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="password" id="password" name="password" placeholder="Password"/>
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Log in</button>
+        </div>
+        <label for="password">Register <a href="/register">here</a></label>
+    </fieldset>
+</form>
 </body>
 </html>

@@ -18,7 +18,7 @@ public class IndexController {
     @Autowired
     BetService betService;
 
-    @GetMapping("/")
+    @GetMapping(path = "/")
     public ModelAndView index() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Player currentPlayer = (Player)principal;
@@ -33,7 +33,9 @@ public class IndexController {
         return mav;
     }
 
-    @PostMapping ModelAndView deleteBet(String betId) {
+
+    @PostMapping("/deleteBet")
+    ModelAndView deleteBet(String betId) {
         Bet toDelete = betService.findById(betId).get();
         betService.delete(toDelete);
 

@@ -2,34 +2,15 @@
 <html xmlns:th="https://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Personal Details</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand">SportsBetting</a>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/">Home</a>
-            </li>
-            <li class="nav-item disabled">
-                <a class="nav-link disabled" href="#">Events</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="/details">Personal Details</a>
-            </li>
-        </ul>
-        <form th:action="login?logout" method="post">
-            <button type="submit" class="btn-primary">Logout</button>
-        </form>
-    </div>
-</nav>
+<div th:insert="navbar">...</div>
 
 <div class="wrapper">
     <fieldset>
         <legend>Account details</legend>
-
         <label for="username">Username</label>
         <input type="text" id="username" name="username" th:value="${currentPlayer.username}" readonly/>
         <label for="email">Email</label>
@@ -39,31 +20,31 @@
     </fieldset>
 </div>
 <div>
-    <table>
+    <table class="table">
         <thead>
-            <tr>
-                <th> Currency </th>
-                <th> Balance </th>
-                <th> AccountID </th>
-                <th> </th>
-            </tr>
+        <tr>
+            <th scope="col"> Currency </th>
+            <th scope="col"> Balance </th>
+            <th scope="col"> Account ID </th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
         </thead>
         <tbody>
-            <tr th:if="${playerAccounts.empty}">
-                <td colspan="4"> No Accounts Available </td>
-            </tr>
-            <tr th:each="account : ${playerAccounts}">
-                <td><span th:text="${account.currency}"> Currency </span></td>
-                <td><span th:text="${account.balance}"> Balance </span></td>
-                <td><span th:text="${account.ID}"> Account Number </span></td>
-                <td>
-                    <form th:action="@{/deposit}" method="post">
-                        <input type="number" name="accountId" th:value="${account.ID}" hidden/>
-                        <input type="number" name="deposit" min="0" value="0"/>
-                        <button type="submit">Deposit</button>
-                    </form>
-                </td>
-            </tr>
+        <tr th:if="${playerAccounts.empty}">
+            <td colspan="4"> No Accounts Available </td>
+        </tr>
+        <tr th:each="account : ${playerAccounts}">
+            <td><span th:text="${account.currency}"> # </span></td>
+            <td><span th:text="${account.balance}"> Event Title </span></td>
+            <td>
+                <form th:action="@{/deposit}" method="post">
+                    <input type="number" name="accountId" th:value="${account.ID}" hidden/>
+                    <input type="number" name="deposit" min="0" value="0"/>
+                    <button type="submit" class="btn-success">Deposit</button>
+                </form>
+            </td>
+        </tr>
         </tbody>
     </table>
 

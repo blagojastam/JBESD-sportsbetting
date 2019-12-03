@@ -1,0 +1,22 @@
+.loginpage-header {
+    margin-outside: 2rem;
+    background-color: rgba(9,21,41,0.87);
+    color: aliceblue;
+    text-align: center;
+}
+
+.loginpage-header.h1,h5 {
+    text-align: center;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.loginpage-form {
+    outline: rgba(9,21,41,0.87);
+    outline-width: thin;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+
+}
+

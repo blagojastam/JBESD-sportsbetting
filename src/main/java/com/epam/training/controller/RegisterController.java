@@ -21,8 +21,6 @@ public class RegisterController {
     public ModelAndView signup(String email, String username, String password, String confirmPassword,
                                String firstName, String lastName, String birthDate, Model model) {
 
-
-
         if (!password.equals(confirmPassword)) {
             return new ModelAndView("register");
         }
