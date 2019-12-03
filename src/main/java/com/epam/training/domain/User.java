@@ -1,35 +1,68 @@
 package com.epam.training.domain;
 
-import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    protected Integer id;
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
+import java.util.Collection;
 
+@MappedSuperclass
+@Setter
+@Getter
+public abstract class User extends DomainEntity implements UserDetails {
+
+    @Column(unique = true)
+    protected String username;
+
+    @Column(unique = true)
     protected String email;
-    protected String password; // because storing passwords in plaintext is cool :)
 
-    public Integer getId() {
-        return id;
+    protected String password;
+
+    protected boolean expired;
+
+    protected boolean credentialsExpired;
+
+    protected boolean enabled;
+
+    protected boolean locked;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
+    @Override
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return !expired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return !locked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return !credentialsExpired;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
     }
 
     public void setPassword(String password) {

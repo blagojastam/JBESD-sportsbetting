@@ -7,27 +7,20 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToOne;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Entity
 @Getter
 @Setter
-public class Bet extends DomainEntity {
+public class BettingAccount extends DomainEntity {
 
-    @OneToOne
-    Player player;
-
-    @OneToOne
-    PossibleOutcome possibleOutcome;
+    String ID = String.valueOf(ThreadLocalRandom.current().nextInt(10000000, 99999999));
 
     @Enumerated(EnumType.STRING)
     Currency currency;
 
-    double amount;
+    double balance;
 
-    boolean processed;
-
-    boolean won;
-
-    Integer number = sequence++;
-    static Integer sequence = 1;
+    @OneToOne
+    Player owner;
 }

@@ -1,0 +1,12 @@
+table td .btn {
+    horizontal-align: middle;
+    vertical-align: middle;
+    display: block;
+    margin: auto;
+}
+
+.separated {
+    display: flex;
+    justify-content: space-between;
+    vertical-align: middle;
+}

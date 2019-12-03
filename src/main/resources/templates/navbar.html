@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <a class="navbar-brand text-light">SportsBetting</a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'active':''}">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item disabled" th:classappend="${#httpServletRequest.getRequestURI() == '/events' ? 'active':''}">
+                <a class="nav-link disabled" href="#">Events</a>
+            </li>
+            <li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/details' ? 'active':''}">
+                <a class="nav-link" href="/details">Personal Details</a>
+            </li>
+        </ul>
+        <form th:action="login?logout" method="post">
+            <button type="submit" class="btn btn-default btn-outline-light">Logout</button>
+        </form>
+    </nav>
+</html>

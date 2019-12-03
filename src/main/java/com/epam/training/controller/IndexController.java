@@ -1,39 +1,44 @@
 package com.epam.training.controller;
 
+import com.epam.training.domain.Bet;
 import com.epam.training.domain.Player;
-import com.epam.training.service.PlayerService;
+import com.epam.training.service.BetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 
 @Controller
 public class IndexController {
 
     @Autowired
-    PlayerService playerService;
+    BetService betService;
 
-    @GetMapping({"/", "/index"})
-    public String index(){
-        return "index.jsp";
-    }
+    @GetMapping(path = "/")
+    public ModelAndView index() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Player currentPlayer = (Player)principal;
 
-    @PostMapping("/login")
-    public ModelAndView index(@RequestParam("email") String email,
-                              @RequestParam("password") String password){
-        ModelAndView mav = null;
+        ModelAndView mav = new ModelAndView("index");
+        mav.addObject("currentPlayer", currentPlayer);
 
-        Player foundPlayer = playerService.findByEmail(email).get();
-
-        if (foundPlayer != null && foundPlayer.getPassword().equals(password)) {
-            mav = new ModelAndView("hello.jsp");
-            mav.addObject("name", foundPlayer.getName());
-        } else {
-            mav = new ModelAndView("register.jsp");
-        }
+        List<Bet> playerBets = betService.findAllForPlayer(currentPlayer);
+        mav.addObject("playerBets", playerBets);
+        mav.addObject("sequence",1);
 
         return mav;
     }
 
+
+    @PostMapping("/deleteBet")
+    ModelAndView deleteBet(String betId) {
+        Bet toDelete = betService.findById(betId).get();
+        betService.delete(toDelete);
+
+        return index();
+    }
 }

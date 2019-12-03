@@ -1,8 +1,8 @@
 package com.epam.training.domain;
 
-public enum BetType {
+public enum OutcomeType {
     WINNER,
     GOALS,
-    PLAYERS_SCORE,
+    PLAYER_SCORES,
     NUMBER_OF_SETS
 }

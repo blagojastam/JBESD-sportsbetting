@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SportsBetting</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div th:insert="navbar">...</div>
+
+<table class="table ">
+    <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">#</th>
+            <th scope="col">Event title</th>
+            <th scope="col">Event type</th>
+            <th scope="col">Bet type</th>
+            <th scope="col">Winning Condition</th>
+            <th scope="col">Bet amount</th>
+            <th scope="col">Coefficient</th>
+            <th scope="col">Won</th>
+            <th scope="col">Processed</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:if="${playerBets.empty}">
+            <td colspan="8"> No Bets Available </td>
+        </tr>
+        <tr th:each="bet : ${playerBets}">
+            <td>
+                <span th:if="${!bet.processed}">
+                    <form th:action="deleteBet" method="post">
+                        <input th:name="betId" th:value="${bet.ID}" hidden>
+                        <button type="submit" class="btn btn-sm btn-danger btn-centered">Remove</button>
+                    </form>
+                </span>
+            </td>
+            <td><span th:text="${bet.number}"> # </span></td>
+            <td><span th:text="${bet.possibleOutcome.sportEvent.title}"> Event Title </span></td>
+            <td><span th:text="${bet.possibleOutcome.sportEvent.type}"> Event Type </span></td>
+            <td><span th:text="${bet.possibleOutcome.outcomeType}"> Bet Type </span></td>
+            <td><span th:text="${bet.possibleOutcome.winningCondition}"> Winning Condition </span></td>
+            <td>
+                <span th:text="${bet.amount}"> Bet Amount </span>
+                <span th:text="${bet.currency}"> Bet Currency </span>
+            </td>
+            <td><span th:text="${bet.possibleOutcome.ratio}"> Coefficient </span></td>
+            <td><span th:text="${bet.won}"> Won </span></td>
+            <td><span th:text="${bet.processed}"> Processed </span></td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

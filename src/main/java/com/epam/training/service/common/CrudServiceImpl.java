@@ -1,7 +1,7 @@
 package com.epam.training.service.common;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -10,7 +10,7 @@ import java.util.Optional;
 abstract public class CrudServiceImpl<T, ID> implements CrudService<T, ID>{
 
     @Autowired
-    CrudRepository<T, ID> repository;
+    JpaRepository<T, ID> repository;
 
     @Override
     public Iterable<T> findAll() {

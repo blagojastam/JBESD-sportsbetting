@@ -1,16 +1,19 @@
 package com.epam.training;
 
-import com.epam.training.config.AppConfig;
+import com.epam.training.config.Initializer;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+@SpringBootApplication(scanBasePackages = {"com.epam.training"}, exclude = SecurityAutoConfiguration.class)
 public class AppSpring {
+
     public static void main(String[] args) {
-        try (ConfigurableApplicationContext appContext = new AnnotationConfigApplicationContext(AppConfig.class)) {
-            App app = appContext.getBean(App.class);
-            app.initialize();
-            app.createPlayer();
-            app.play();
-        }
+
+        ConfigurableApplicationContext context = SpringApplication.run(AppSpring.class, args);
+
+        Initializer init = context.getBean(Initializer.class);
+        init.setUp();
     }
 }
