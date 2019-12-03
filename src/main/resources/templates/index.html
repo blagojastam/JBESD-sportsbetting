@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>SportsBetting</title>
-    <link rel="stylesheet" href="/static/css/style.css" type="text/css" th:href="@{/static/css/style.css}"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css" th:href="@{/css/style.css}"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 <div th:insert="navbar">...</div>
 
-
-<table class="table">
+<table class="table ">
     <thead>
         <tr>
             <th scope="col"></th>
@@ -35,7 +34,7 @@
                 <span th:if="${!bet.processed}">
                     <form th:action="deleteBet" method="post">
                         <input th:name="betId" th:value="${bet.ID}" hidden>
-                        <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                        <button type="submit" class="btn btn-sm btn-danger btn-centered">Remove</button>
                     </form>
                 </span>
             </td>

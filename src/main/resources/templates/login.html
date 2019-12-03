@@ -8,32 +8,42 @@
 </head>
 <body>
 <div>
-    <header class="loginpage-header">
-        <h1 class="display-1">Welcome to SportsBetting!</h1>
-        <h5 class="display-1">Sports betting is the activity of predicting sports results and placing bets on the outcome</h5>
+    <header class="bg-dark text-center text-light p-5">
+        <h1>Welcome to SportsBetting!</h1>
+        <a>Sports betting is the activity of predicting sports results and placing bets on the outcome</a>
     </header>
 </div>
 
-<form name="f" th:action="@{/login}" method="post" >
-    <fieldset>
-        <legend>Please Login</legend>
-        <div th:if="${param.error}" class="alert alert-error">
-            Invalid username and password.
-        </div>
-        <div th:if="${param.logout}" class="alert alert-success">
-            You have been logged out.
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="text" id="username" name="username" placeholder="Username"/>
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="password" id="password" name="password" placeholder="Password"/>
-        </div>
-        <div class="form-actions">
-            <button class="btn btn-primary" type="submit">Log in</button>
-        </div>
-        <label for="password">Register <a href="/register">here</a></label>
-    </fieldset>
-</form>
+<div class="row pt-5">
+    <div class="col"></div>
+    <div class="col"></div>
+    <div class="col">
+        <form name="f" th:action="@{/login}" method="post" >
+            <fieldset>
+                <legend>Please Login</legend>
+                <div th:if="${param.error}" class="alert alert-error text-danger">
+                    Invalid username and password.
+                </div>
+                <div th:if="${param.logout}" class="alert alert-success text-success">
+                    You have been logged out.
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" id="username" name="username" placeholder="Username"/>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="password" id="password" name="password" placeholder="Password"/>
+                </div>
+                <div class="form-actions separated">
+                    <button class="btn btn-primary" type="submit">Log in</button>
+                    <label class="pt-1">Register <a href="/register">here</a></label>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="col"></div>
+    <div class="col"></div>
+</div>
+
+
 </body>
 </html>
